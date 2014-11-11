@@ -1,0 +1,24 @@
+<Alloy>
+	 <Window id="windowActivity"   >
+	 	<View id="Container">
+	 		
+		 	<View id = "Time" class ="info">
+		 		<Label id="Hour" class="chronometer" text="00"></Label>
+		 		<Label class="chronometer" text="00" text=":"></Label>
+		 		<Label id="Minute" class="chronometer" text="00"></Label>
+		 		<Label class="chronometer" text="00" text=":"></Label>
+		 		<Label id="Second" class="chronometer" text="00"></Label>
+						</View>
+			<ActivityIndicator id="activityIndicator"  />
+		
+				<View id="Sudoku">
+				</View>
+
+			<View id ="Options" class ="info">
+				<Button id="help" textAlign="Center" title = "AIDE"></Button>
+		
+			</View>
+		</View>
+					
+	</Window>
+</Alloy>

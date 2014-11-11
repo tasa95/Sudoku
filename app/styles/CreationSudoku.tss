@@ -1,0 +1,92 @@
+
+"#Container" : {
+	layout:"vertical",
+	width : Titanium.UI.FILL,
+	height : Titanium.UI.FILL
+}
+
+
+"#activityIndicator" : {
+	
+	style: Ti.UI.ActivityIndicatorStyle.DARK,
+	indicatorColor:"Black",
+	color:"Black",
+	height:Ti.UI.SIZE,
+ 	width:Ti.UI.SIZE
+ 	
+}
+
+"#activityIndicator[platform=ios]": {
+    style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+}
+
+"#windowActivity" :
+{
+	backgroundColor: "#166181"
+}
+
+".info" :
+{
+	width : Titanium.UI.FILL,
+}
+
+"#Time" :{
+	layout : "horizontal",
+	font :{
+		fontSize : 24
+	},
+	top: 20,
+	width : "40%" ,
+	height : Titanium.UI.SIZE,
+	left :"30%",
+	backgroundColor : "#FFFFFF",
+	borderColor : "#FFFFFF",
+	borderRadius : 15
+	
+	
+	
+}
+
+".chronometer" :{
+	color:"#166181",
+	font :{
+		fontSize : 24
+	},
+
+	left : "2%"	
+}
+
+"#help" :{
+	
+	top: 20,
+	width : "40%" ,
+	height : Titanium.UI.SIZE,
+	left :"30%",
+	backgroundColor : "#FFFFFF",
+	borderColor : "#FFFFFF",
+	borderRadius : 15,
+	textAlign : "Center"	
+}
+
+".Options" :{
+	
+	height : Titanium.UI.FILL,
+	width : Titanium.UI.FILL
+	
+}
+
+"#Sudoku" :{
+	height : Titanium.UI.SIZE,
+	width : Titanium.UI.SIZE,
+	layout : "horizontal",
+	left :  "2%"
+}
+
+"ScrollView" :{
+	height : Titanium.UI.SIZE,
+	width : Titanium.UI.SIZE
+	
+}
+
+
+

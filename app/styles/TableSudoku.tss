@@ -1,0 +1,74 @@
+
+".container" : {
+  
+  layout:"vertical"
+}
+
+"#Time" :{
+	
+	
+	 
+}
+
+"#plateform" :{
+	
+	layout:"vertical"
+}
+
+"#Sudoku" :{
+	width : Titanium.UI.FILL,
+	height : "80%"
+	
+	
+	
+}
+".LineSudoku" :{
+	backgroundColor:'#FFFFFF',
+	height: Ti.UI.FILL,
+    layout : "horizontal",
+    width: Ti.UI.FILL,
+}
+"TableViewRow" :
+{
+	width : Titanium.UI.FILL,
+	height : Titanium.UI.FILL
+}
+
+".HorizontalLine" :{
+	
+		backgroundColor:"#000000",
+    	width: Ti.UI.FILL,
+    	top: 0,
+    	bottom: 0,
+    	right: 0,
+    	height: "1%" 
+}
+
+".VerticalLine" :{
+				backgroundColor: "#000000",
+		    	width: "1%",
+		    	top: 0,
+		    	bottom: 0,
+		    	right: 0,
+		    	height: Ti.UI.FILL 
+	
+}
+
+".textField" :{
+			width : Titanium.UI.SIZE,
+			height : Titanium.UI.FILL
+			
+}
+
+
+"#Options" :{
+	
+	
+}
+
+".info" :
+{
+	width : Titanium.UI.FILL,
+	height : "10%",
+	backgroundColor : "Black"
+}
