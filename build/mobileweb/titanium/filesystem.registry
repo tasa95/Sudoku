@@ -1,4 +1,4 @@
-ts	1415709982000
+ts	1417005349000
 Default-Landscape.png	513333
 Default-Portrait.png	76153
 Default.png	110858
@@ -9,13 +9,11 @@ alloy
 	constants.js	6654
 	controllers
 		BaseController.js	7259
-		CreationSudoku.js	14150
-		TableSudoku.js	4237
+		CreationSudoku.js	15324
 		algoSudoku.js	10504
 		index.js	1147
 	styles
-		CreationSudoku.js	1274
-		TableSudoku.js	1215
+		CreationSudoku.js	1417
 		algoSudoku.js	20
 		index.js	302
 	sync

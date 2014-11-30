@@ -238,16 +238,14 @@ function Controller() {
         id: "activityIndicator"
     });
     $.__views.Container.add($.__views.activityIndicator);
-    $.__views.__alloyId2 = Ti.UI.createScrollView({
-        id: "__alloyId2"
-    });
-    $.__views.Container.add($.__views.__alloyId2);
     $.__views.Sudoku = Ti.UI.createView({
         height: Titanium.UI.SIZE,
         width: Titanium.UI.SIZE,
+        layout: "horizontal",
+        left: "2%",
         id: "Sudoku"
     });
-    $.__views.__alloyId2.add($.__views.Sudoku);
+    $.__views.Container.add($.__views.Sudoku);
     $.__views.Options = Ti.UI.createView({
         width: Titanium.UI.FILL,
         id: "Options"
@@ -277,15 +275,20 @@ function Controller() {
     var height = .6 * Titanium.Platform.displayCaps.platformHeight;
     var tinyBorderHorizontal = .005 * height;
     var tinyBorderVertical = .005 * width;
-    var row_height = .9 * height / 9;
-    var cell_width = .9 * width / 9;
+    var row_height = .94 * height / 9;
+    var cell_width = .94 * width / 9;
     var color_border = "#040430";
     var second_color = "#D9F1FE";
     var first_color = "#FFFFFF";
     var tableData = [];
     var table = Ti.UI.createTableView({
         separatorStyle: 0,
-        width: Ti.UI.FILL
+        width: Ti.UI.FILL,
+        height: Ti.UI.SIZE,
+        bottom: "45%",
+        moveable: false,
+        moving: false,
+        scrollable: false
     });
     var number_line = sudoku.length - 1;
     for (var i = 0; number_line > i; i++) {
@@ -294,7 +297,13 @@ function Controller() {
             objName: "row_" + i,
             textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
             layout: "vertical",
-            height: row_height
+            height: row_height,
+            moveable: false,
+            moving: false,
+            scrollable: false,
+            focusable: false,
+            editable: false,
+            touchEnabled: false
         });
         var LineSudokuView = Ti.UI.createView({
             backgroundColor: "#FFFFFF",
@@ -311,7 +320,8 @@ function Controller() {
                 if ((Math.floor(j / 3) + 3 * Math.floor(i / 3)) % 2 === 0) var color = first_color; else var color = second_color;
                 var hide = random % 3 == 0 || random % 5 == 0 || random % 7 == 0 || random % 13 == 0 || random % 17 == 0 || random % 19 == 0 || random % 23 == 0 || random % 29 == 0;
                 if (hide) var textField = Ti.UI.createTextField({
-                    keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
+                    keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
+                    value: ""
                 }); else var textField = Ti.UI.createTextField({
                     value: sudoku[i][j],
                     touchEnabled: false,
@@ -323,6 +333,19 @@ function Controller() {
                 textField.textAlign = Titanium.UI.TEXT_ALIGNMENT_CENTER;
                 textField.backgroundColor = color;
                 textField.focusable = true;
+                textField.addEventListener("change", function(e) {
+                    var letters = /^[0-9]+$/;
+                    if (e.value != e.source.oldValue) if (e.value.match(letters)) {
+                        e.value = e.value % 10;
+                        e.source.oldValue = e.value;
+                        e.source.value = e.value;
+                    } else if ("" === e.value) {
+                        e.source.oldValue = e.value;
+                        e.source.value = e.value;
+                    } else e.source.value = "";
+                    e.returnKeyType = Titanium.UI.RETURNKEY_DONE;
+                    Ti.API.info("view = " + e.source.toString());
+                });
                 LineSudokuView.add(textField);
                 if (8 > j) {
                     var VerticalBorder = Ti.UI.createView({
@@ -348,16 +371,24 @@ function Controller() {
         });
         row.add(HorizontalBorder);
         tableData.push(row);
-        row = null;
     }
+    var HorizontalBorder = Ti.UI.createView({
+        backgroundColor: color_border,
+        width: Ti.UI.FILL,
+        top: 0,
+        bottom: 0,
+        right: 0,
+        height: tinyBorderHorizontal
+    });
+    row.add(HorizontalBorder);
     table.setData(tableData);
     $.Sudoku.add(table);
     setInterval(function() {
         $.Second.text++;
-        $.Second.text > 0 && $.Second.text < 10 && ($.Second.text = "0" + $.Second.text);
+        $.Second.text >= 0 && $.Second.text < 10 && ($.Second.text = "0" + $.Second.text);
         if ($.Second.text % 60 == 0) {
             $.Minute.text++;
-            $.Minute.text > 0 && $.Minute.text < 10 && ($.Minute.text = "0" + $.Minute.text);
+            $.Minute.text >= 0 && $.Minute.text < 10 && ($.Minute.text = "0" + $.Minute.text);
             $.Second.text = 0;
             if ($.Minute.text % 60 == 0) {
                 $.Hour.text++;

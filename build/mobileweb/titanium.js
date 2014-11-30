@@ -41,8 +41,8 @@ var require = {
 	},
 	ti: {
 		analyticsPlatformName: "mobileweb",
-		buildHash: "b54c467",
-		buildDate: "09/25/14 16:41",
+		buildHash: "5982e8f",
+		buildDate: "11/13/14 13:33",
 		buildType: "",
 		colorsModule: "Ti/_/colors",
 		filesystem: {
@@ -51,7 +51,7 @@ var require = {
 		osName: "mobileweb",
 		platformName: "mobileweb",
 		theme: "default",
-		version: "3.4.0"
+		version: "3.4.1"
 	},
 	vendorPrefixes: {
 		css: ["", "-webkit-", "-moz-", "-ms-", "-o-", "-khtml-"],

@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/tasa/Documents/Titanium_Studio_Workspace/ImportSudoku/Sudoku/build/iphone/Classes/KrollMethodDelegate.m \
-  /Users/tasa/Documents/Titanium_Studio_Workspace/ImportSudoku/Sudoku/build/iphone/Classes/KrollMethodDelegate.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollMethodDelegate.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollMethodDelegate.h

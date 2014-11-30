@@ -1,2 +1,2 @@
 dependencies: \
-  /Users/tasa/Documents/Titanium_Studio_Workspace/ImportSudoku/Sudoku/build/iphone/Classes/TiUICanvasView.m
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiUICanvasView.m

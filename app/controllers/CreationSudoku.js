@@ -330,10 +330,40 @@ var color_border = '#040430';
 var second_color = '#D9F1FE';
 var first_color = '#FFFFFF' ;
 
-function addNumbers(value,oldValue)
+
+function stopGame(refreshIntervalId)
 {
-	
+	clearInterval(refreshIntervalId);
 }
+
+function verify_valueElement(e)
+{
+	var letters = /^[0-9]+$/;  
+		    if(e.value != e.source.oldValue)
+		    {	    
+			    if( e.value.match(letters))
+			    {
+			    		e.value = e.value %10;	
+			    		//Ti.API.info("aaa  oldValue = " +e.source.oldValue + " newValue = "+ e.value );
+			    		e.source.oldValue = e.value;
+			    		e.source.value = e.value;
+			    }
+			    else
+			    {
+			    	if(e.value ==="")
+				    {
+				    	e.source.oldValue = e.value;
+				    	e.source.value  = e.value;
+				    }
+				    else
+				    {
+				    	 e.source.value = "";
+				    	 
+				    }	
+			    }
+			}
+}
+
 
 
 var tableData = [ ];
@@ -422,32 +452,31 @@ if(sudoku[i])
     	textField.focusable = true;
     	
     	textField.addEventListener('change',function(e){
+    		 if(e.value != e.source.oldValue)
+		    {	    
+	    		verify_valueElement(e);
+	    		var element = e.source;
+	    		var id = element.id +"";
+	    		var fields =id.split("_");
+	    		if(sudoku[fields[1]][fields[2]] == e.source.value)
+	    		{
+	    			element.color = "#1E6912";
+	    			empty_cells--;
+	    		}
+	    		else
+	    		{
+	    			element.color = "#801A15";
+	    		}
+	    		
+	    		Ti.API.info("empty_cells= " +empty_cells );
+	    		if(empty_cells == 0)
+	    		{
+	    			stopGame(refreshId);
+	    		}
+    		}
     		
     		
-		    var letters = /^[0-9]+$/;  
-		    if(e.value != e.source.oldValue)
-		    {
-			    if( e.value.match(letters))
-			    {
-			    		e.value = e.value %10;	
-			    		//Ti.API.info("aaa  oldValue = " +e.source.oldValue + " newValue = "+ e.value );
-			    		e.source.oldValue = e.value;
-			    		e.source.value = e.value;
-			    }
-			    else
-			    {
-			    	if(e.value ==="")
-				    {
-				    	e.source.oldValue = e.value;
-				    	e.source.value  = e.value;
-				    }
-				    else
-				    {
-				    	 e.source.value = "";
-				    }	
-			    }
-			}
-			Ti.API.info("view = " +e.source.toString()   );
+		   
 		});
 		
 	 // textField.top = tinyBorderHorizontal;	
@@ -513,14 +542,14 @@ $.Sudoku.add(table);
 
 setInterval(function (){
 	$.Second.text++;
-	if($.Second.text > 0 && $.Second.text < 10)
+	if($.Second.text >= 0 && $.Second.text < 10)
 	{
 		$.Second.text = "0" + $.Second.text; 
 	}
 	if($.Second.text % 60 == 0)
 	{
 		$.Minute.text++;
-		if($.Minute.text > 0 && $.Minute.text < 10)
+		if($.Minute.text >= 0 && $.Minute.text < 10)
 		{
 			$.Minute.text = "0" + $.Minute.text; 
 		}

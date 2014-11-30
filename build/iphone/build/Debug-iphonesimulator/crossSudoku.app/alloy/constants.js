@@ -1,1 +1,1 @@
-/Users/tasa/Documents/Titanium_Studio_Workspace/ImportSudoku/Sudoku/Resources/iphone/alloy/constants.js
+/Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/Resources/iphone/alloy/constants.js

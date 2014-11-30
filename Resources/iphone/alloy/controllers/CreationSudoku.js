@@ -343,6 +343,7 @@ function Controller() {
                         e.source.oldValue = e.value;
                         e.source.value = e.value;
                     } else e.source.value = "";
+                    e.returnKeyType = Titanium.UI.RETURNKEY_DONE;
                     Ti.API.info("view = " + e.source.toString());
                 });
                 LineSudokuView.add(textField);
@@ -384,10 +385,10 @@ function Controller() {
     $.Sudoku.add(table);
     setInterval(function() {
         $.Second.text++;
-        $.Second.text > 0 && $.Second.text < 10 && ($.Second.text = "0" + $.Second.text);
+        $.Second.text >= 0 && $.Second.text < 10 && ($.Second.text = "0" + $.Second.text);
         if ($.Second.text % 60 == 0) {
             $.Minute.text++;
-            $.Minute.text > 0 && $.Minute.text < 10 && ($.Minute.text = "0" + $.Minute.text);
+            $.Minute.text >= 0 && $.Minute.text < 10 && ($.Minute.text = "0" + $.Minute.text);
             $.Second.text = 0;
             if ($.Minute.text % 60 == 0) {
                 $.Hour.text++;

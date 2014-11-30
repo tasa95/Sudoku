@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/tasa/Documents/Titanium_Studio_Workspace/ImportSudoku/Sudoku/build/iphone/Classes/CADebugMacros.cpp \
-  /Users/tasa/Documents/Titanium_Studio_Workspace/ImportSudoku/Sudoku/build/iphone/Classes/CADebugMacros.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/CADebugMacros.cpp \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/CADebugMacros.h
