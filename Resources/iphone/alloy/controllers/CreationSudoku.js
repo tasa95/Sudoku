@@ -76,6 +76,8 @@ function Controller() {
             } else compteur[y] == less && -1 !== probTableSudoku[index].indexOf(y) && tab_value.push(y);
             return tab_value;
         }
+        Ti.API.info("index = " + index);
+        Ti.API.info("value = " + probTableSudoku[index][0]);
         return probTableSudoku[index];
     }
     function insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
@@ -137,6 +139,20 @@ function Controller() {
         }
         return tableSudoku;
     }
+    function stopGame(refreshIntervalId) {
+        clearInterval(refreshIntervalId);
+    }
+    function verify_valueElement(e) {
+        var letters = /^[0-9]+$/;
+        if (e.value != e.source.oldValue) if (e.value.match(letters)) {
+            e.value = e.value % 10;
+            e.source.oldValue = e.value;
+            e.source.value = e.value;
+        } else if ("" === e.value) {
+            e.source.oldValue = e.value;
+            e.source.value = e.value;
+        } else e.source.value = "";
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "CreationSudoku";
     if (arguments[0]) {
@@ -160,18 +176,19 @@ function Controller() {
     $.__views.Container = Ti.UI.createView({
         layout: "vertical",
         width: Titanium.UI.FILL,
-        height: Titanium.UI.FILL,
+        height: Titanium.UI.SIZE,
+        top: "5%",
         id: "Container"
     });
     $.__views.windowActivity.add($.__views.Container);
     $.__views.Time = Ti.UI.createView({
         width: "40%",
+        height: Titanium.UI.SIZE,
+        top: "2%",
         layout: "horizontal",
         font: {
             fontSize: 24
         },
-        top: 20,
-        height: Titanium.UI.SIZE,
         left: "30%",
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
@@ -229,30 +246,23 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Second);
-    $.__views.activityIndicator = Ti.UI.createActivityIndicator({
-        style: Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
-        indicatorColor: "Black",
-        color: "Black",
-        height: Ti.UI.SIZE,
-        width: Ti.UI.SIZE,
-        id: "activityIndicator"
-    });
-    $.__views.Container.add($.__views.activityIndicator);
     $.__views.Sudoku = Ti.UI.createView({
         height: Titanium.UI.SIZE,
-        width: Titanium.UI.SIZE,
+        width: Titanium.UI.FILL,
         layout: "horizontal",
-        left: "2%",
+        left: "1%",
+        top: "1%",
         id: "Sudoku"
     });
     $.__views.Container.add($.__views.Sudoku);
     $.__views.Options = Ti.UI.createView({
-        width: Titanium.UI.FILL,
+        width: Titanium.UI.SIZE,
+        height: Titanium.UI.SIZE,
+        top: "1%",
         id: "Options"
     });
     $.__views.Container.add($.__views.Options);
     $.__views.help = Ti.UI.createButton({
-        top: 20,
         width: "40%",
         height: Titanium.UI.SIZE,
         left: "30%",
@@ -266,11 +276,7 @@ function Controller() {
     $.__views.Options.add($.__views.help);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
-    $.activityIndicator.style = style;
-    $.activityIndicator.show();
     var sudoku = InitTable();
-    $.activityIndicator.hide();
     var width = Titanium.Platform.displayCaps.platformWidth;
     var height = .6 * Titanium.Platform.displayCaps.platformHeight;
     var tinyBorderHorizontal = .005 * height;
@@ -285,12 +291,13 @@ function Controller() {
         separatorStyle: 0,
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
-        bottom: "45%",
+        bottom: "2%",
         moveable: false,
         moving: false,
         scrollable: false
     });
     var number_line = sudoku.length - 1;
+    var empty_cells = 0;
     for (var i = 0; number_line > i; i++) {
         var row = Ti.UI.createTableViewRow({
             className: "row",
@@ -303,7 +310,9 @@ function Controller() {
             scrollable: false,
             focusable: false,
             editable: false,
-            touchEnabled: false
+            touchEnabled: false,
+            allowsSelection: false,
+            selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
         });
         var LineSudokuView = Ti.UI.createView({
             backgroundColor: "#FFFFFF",
@@ -319,14 +328,19 @@ function Controller() {
                 var random = Math.floor(1e3 * Math.random());
                 if ((Math.floor(j / 3) + 3 * Math.floor(i / 3)) % 2 === 0) var color = first_color; else var color = second_color;
                 var hide = random % 3 == 0 || random % 5 == 0 || random % 7 == 0 || random % 13 == 0 || random % 17 == 0 || random % 19 == 0 || random % 23 == 0 || random % 29 == 0;
-                if (hide) var textField = Ti.UI.createTextField({
-                    keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
-                    value: ""
-                }); else var textField = Ti.UI.createTextField({
+                if (hide) {
+                    var textField = Ti.UI.createTextField({
+                        keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
+                        value: "",
+                        id: "textField_" + i + "_" + j
+                    });
+                    empty_cells++;
+                } else var textField = Ti.UI.createTextField({
                     value: sudoku[i][j],
                     touchEnabled: false,
                     editable: false,
-                    keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD
+                    keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
+                    id: "textField_" + i + "_" + j
                 });
                 textField.height = row_height;
                 textField.width = cell_width;
@@ -334,17 +348,18 @@ function Controller() {
                 textField.backgroundColor = color;
                 textField.focusable = true;
                 textField.addEventListener("change", function(e) {
-                    var letters = /^[0-9]+$/;
-                    if (e.value != e.source.oldValue) if (e.value.match(letters)) {
-                        e.value = e.value % 10;
-                        e.source.oldValue = e.value;
-                        e.source.value = e.value;
-                    } else if ("" === e.value) {
-                        e.source.oldValue = e.value;
-                        e.source.value = e.value;
-                    } else e.source.value = "";
-                    e.returnKeyType = Titanium.UI.RETURNKEY_DONE;
-                    Ti.API.info("view = " + e.source.toString());
+                    if (e.value != e.source.oldValue) {
+                        verify_valueElement(e);
+                        var element = e.source;
+                        var id = element.id + "";
+                        var fields = id.split("_");
+                        if (sudoku[fields[1]][fields[2]] == e.source.value) {
+                            element.color = "#1E6912";
+                            empty_cells--;
+                        } else element.color = "#801A15";
+                        Ti.API.info("empty_cells= " + empty_cells);
+                        0 == empty_cells && stopGame(refreshId);
+                    }
                 });
                 LineSudokuView.add(textField);
                 if (8 > j) {
