@@ -135,7 +135,7 @@ function Controller() {
                     index++;
                     -1 === tableIndex_check.indexOf(index) && insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry);
                 }
-                if (9 > index) {
+                if (8 == index) {
                     i++;
                     j = 0;
                     tableIndex_check = [];

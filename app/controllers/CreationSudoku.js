@@ -216,8 +216,9 @@ function sortTable(table) {
 					probTableSudoku[i][j] = tableTry;
 					// qu'on ajoute au tableau des prob
 				} else {
-					tableTry.push(tableSudoku[i][j]);
+					tableTry.push(tableSudoku[i][j]); // récupére la valeur déja rentré dans le tableau et 
 					probTableSudoku[i][j] = tableTry;
+					// qu'on ajoute au tableau des prob
 
 				}
 				tableTry = [];
@@ -238,13 +239,12 @@ function sortTable(table) {
 							insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry);
 						}
 					}
-					if (index < 9) {
+					if (index == 8) {
 						i++;
 						j = 0;
 						tableIndex_check = [];
 						probTableSudoku[i] = [];
 						tableSudoku[i] = [];
-						//Ti.API.info("Nouvelle ligne = " +i);
 					}
 				}
 			}
