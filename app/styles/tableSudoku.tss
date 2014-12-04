@@ -1,0 +1,76 @@
+
+".container": {
+
+	layout: "vertical",
+	width: Titanium.UI.FILL,
+	height: Titanium.UI.SIZE,
+	top: "5%"
+}
+
+
+"#windowTable":
+{
+	backgroundColor: "#166181"
+}
+".info":
+{
+	width: Titanium.UI.SIZE,
+	height: Titanium.UI.SIZE,
+	top: 0
+}
+
+"#Time":{
+	layout: "horizontal",
+	font:{
+		fontSize: 24
+	},
+	top: "2%",
+	width: "40%" ,
+	height: Titanium.UI.SIZE,
+	left: "30%",
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15
+}
+
+".chronometer":{
+	color: "#166181",
+	font:{
+		fontSize: 24
+	},
+
+	left: "2%"
+}
+
+"#help":{
+
+	width: "40%" ,
+	height: Titanium.UI.SIZE,
+	left: "30%",
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15,
+	textAlign: "Center"
+}
+
+"#Options":{
+	top: "1%",
+	width: Titanium.UI.SIZE,
+	height: Titanium.UI.SIZE
+}
+
+"#Sudoku":{
+	height: Titanium.UI.SIZE,
+	width: Titanium.UI.FILL,
+	layout: "horizontal",
+	left: "1%",
+	top: "1%"
+}
+
+"ScrollView":{
+	height: Titanium.UI.SIZE,
+	width: Titanium.UI.SIZE
+}
+
+
+
