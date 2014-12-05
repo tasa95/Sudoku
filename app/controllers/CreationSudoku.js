@@ -1,12 +1,11 @@
-function goToSudoku(sudoku)
-{
-	var tableSudokuController = Alloy.createController("tableSudoku",{table : sudoku});
-	tableSudokuController.getView().open() ; 
+function goToSudoku(sudoku) {
+	var tableSudokuController = Alloy.createController("tableSudoku", {
+		table : sudoku
+	});
+	tableSudokuController.getView().open();
 	$.windowActivity.hide();
-	
+
 }
-
-
 
 function InitTable() {
 	var table = [];
@@ -19,21 +18,28 @@ function InitTable() {
 	return sortTable(table);
 }
 
-
-
 function setProb(sector, column, values) {
-	tableTry = [];
+	var tableTry = [];
+	
 	if (!Array.isArray(column))
 		column = [];
 
 	if (!Array.isArray(sector))
 		sector = [];
+	
 	for (var i = 0; i < values.length; i++) {
 
 		if (((column.indexOf(values[i]) == -1 && sector.indexOf(values[i]) == -1 ) )) {
+			//Ti.API.debug("values add = " + values[i]);	
 			tableTry.push(values[i]);
 		}
 	}
+	if(tableTry.length == 0)
+	{
+		Ti.API.error("table lot = 0");	
+		Ti.API.error("values add = " + values);	
+	}
+	
 	return tableTry;
 }
 
@@ -79,10 +85,21 @@ function checkWhereThereIsLessProb(ListOfListOfValues, tableIndex_check) {
 			}
 		}
 	}
-	if (numberOfUniqueProb != 9)
-		return index;
-	else
+
+	if (tableIndex_check.length == 9)
 		return -1;
+	else {
+		if (numberOfUniqueProb != 9) {
+			return index;
+		}
+		for (var i = 0; i < ListOfListOfValues.length; i++) {
+			if (tableIndex_check.indexOf(i) == -1) {
+				return i;
+			}
+		}
+
+	}
+
 }
 
 function AffichageInConsole(tableSudoku) {
@@ -109,9 +126,7 @@ function getValues(i, probTableSudoku, index) {
 		for (var y = 0; y < probTableSudoku.length; y++) {
 			for (var x = 0; x < probTableSudoku[y].length; x++) {
 				if (index != y)
-					;
-				// Récupération de toutes les possibilités sur la même ligne
-				table_number.push(probTableSudoku[y][x]);
+				table_number.push(probTableSudoku[y][x]);// Récupération de toutes les possibilités sur la même ligne
 			}
 		}
 		for (var x = 0; x < probTableSudoku.length; x++) {
@@ -152,15 +167,18 @@ function getValues(i, probTableSudoku, index) {
 		Ti.API.info("index = " + index);
 
 		Ti.API.info("value = " + probTableSudoku[index][0]);
+		Ti.API.info("value = " + probTableSudoku[index]);
 
 		return probTableSudoku[index];
 	}
 }
 
-function insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry) {
-	tableIndex_check.push(index);
+function insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
 
-	tableSudoku[i][index] = setRandom(getValues(i, probTableSudoku[i], index));
+	if(probTableSudoku[i].length > 1)
+		tableSudoku[i][index] = setRandom(getValues(i, probTableSudoku[i], index));
+	else
+		tableSudoku[i][index] = setRandom( probTableSudoku[i]);
 
 	if ( typeof tableColumn[index] === 'undefined' || !(tableColumn[index]) || !(Array.isArray(tableColumn[index]))) {
 		tableColumn[index] = [];
@@ -173,7 +191,10 @@ function insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku
 	}
 	tableColumn[index].push(tableSudoku[i][index]);
 	tableSector[Math.floor(index / 3) + Math.floor(i / 3) * 3].push(tableSudoku[i][index]);
-	table[i].splice(table[i].indexOf(tableSudoku[i][index]), 1);
+	//table[i].splice(table[i].indexOf(tableSudoku[i][index]), 1);
+	table[i]=table[i].filter(function (element){
+		return element != tableSudoku[i][index];
+	});
 	AffichageInConsole(tableSudoku);
 
 }
@@ -216,7 +237,8 @@ function sortTable(table) {
 					probTableSudoku[i][j] = tableTry;
 					// qu'on ajoute au tableau des prob
 				} else {
-					tableTry.push(tableSudoku[i][j]); // récupére la valeur déja rentré dans le tableau et 
+					tableTry.push(tableSudoku[i][j]);
+					// récupére la valeur déja rentré dans le tableau et
 					probTableSudoku[i][j] = tableTry;
 					// qu'on ajoute au tableau des prob
 
@@ -229,48 +251,35 @@ function sortTable(table) {
 
 			if (index != -1 && tableIndex_check.indexOf(index) == -1)// Si l'index est différent de -1 est que l'index n'est pas compris dans les index déja rentré.
 			{
-				insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry);
+				insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table);
+				tableIndex_check.push(index);
 			} else {
-				if (index == -1) {
-					index = -1;
-					while (index < 8) {
-						index++;
-						if (tableIndex_check.indexOf(index) === -1) {
-							insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry);
-						}
-					}
-					if (index == 8) {
-						i++;
-						j = 0;
-						tableIndex_check = [];
-						probTableSudoku[i] = [];
-						tableSudoku[i] = [];
-					}
-				}
+				i++;
+				j = 0;
+				tableIndex_check = [];
+				probTableSudoku[i] = [];
+				tableSudoku[i] = [];
 			}
 		}
 	}
+
 	return tableSudoku;
 }
 
+if ( typeof Ti.Platform.name !== 'undefined' && Ti.Platform.name === 'iPhone OS') {
+	style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
+} else {
+	style = Ti.UI.ActivityIndicatorStyle.DARK;
+}
+if ( typeof Ti.Platform.name !== 'undefined') {
+	$.activityIndicator.style = style;
+}
 
- if ( typeof Ti.Platform.name !== 'undefined' && Ti.Platform.name === 'iPhone OS'){
- style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
- }
- else {
- style = Ti.UI.ActivityIndicatorStyle.DARK;
- }
- if ( typeof Ti.Platform.name !== 'undefined' )
- {
- $.activityIndicator.style = style;
- }
-
- $.activityIndicator.show();
+$.activityIndicator.show();
 
 var sudoku = InitTable();
 
 $.activityIndicator.hide();
 
 goToSudoku(sudoku);
-
 

@@ -1,9 +1,58 @@
-var args = arguments[0] ;
+// Function to test if device is iOS 7 or later
+function isIOS_Seven_Plus() {
+	// iOS-specific test
+	if (Titanium.Platform.name == 'iPhone OS') {
+		var version = Titanium.Platform.version.split(".");
+		var major = parseInt(version[0], 10);
+		// Can only test this support on a 3.2+ device
+		if (major >= 7) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function timer(addTime) {
+	var left_over = 0;
+	var second = parseInt($.Second.text, 10);
+	var minute = parseInt($.Minute.text, 10);
+	var hour = parseInt($.Hour.text, 10);
+	if (!addTime) {
+		second++;
+	} else {
+		second = second + addTime;
+	}
+
+	if (second >= 60) {
+		var left_over = second % 60;
+		second = left_over;
+		minute++;
+		if (minute >= 60) {
+			minute = 0;
+			hour++;
+		}
+	}
+
+	if (second >= 0 && second < 10)
+		$.Second.text = "0" + second;
+	else
+		$.Second.text = second;
+
+	if (minute >= 0 && minute < 10)
+		$.Minute.text = "0" + minute;
+	else
+		$.Minute.text = minute;
+
+	if (hour >= 0 && hour < 10)
+		$.Hour.text = "0" + hour;
+	else
+		$.hour.text = hour;
+
+}
+
+var args = arguments[0];
 var sudoku = [];
 var sudoku = args.table;
-Ti.API.info(sudoku);
-
-
 
 /*************************************/
 
@@ -24,9 +73,11 @@ function stopGame(refreshIntervalId) {
 }
 
 function verify_valueElement(e) {
-	var letters = /^[0-9]+$/;
+	var letters = /^[1-9]+$/;
+	var testMultipleZero = /^0*$/;
 	if (e.value != e.source.oldValue) {
 		if (e.value.match(letters)) {
+
 			e.value = e.value % 10;
 			//Ti.API.info("aaa  oldValue = " +e.source.oldValue + " newValue = "+ e.value );
 			e.source.oldValue = e.value;
@@ -95,7 +146,7 @@ for (var i = 0; i < number_line; i++) {
 				var color = second_color;
 			}
 
-			var hide = (random % 3 == 0 || random % 5 == 0 || random % 7 == 0 || random % 13 == 0 || random % 17 == 00 || random % 19 == 0 || random % 23 == 0 || random % 29 == 0 );
+			var hide = (random % 5 == 0 || random % 7 == 0 || random % 13 == 0 || random % 17 == 00 || random % 19 == 0 || random % 23 == 0 || random % 29 == 0 );
 			if (!hide) {
 				var textField = Ti.UI.createTextField({
 					value : sudoku[i][j],
@@ -112,6 +163,13 @@ for (var i = 0; i < number_line; i++) {
 					id : "textField_" + i + "_" + j
 				});
 				empty_cells++;
+				//textField.returnKeyType = Titanium.UI.RETURNKEY_GO;
+
+				if ( typeof Ti.Platform.name !== 'undefined' && Ti.Platform.name === 'iPhone OS') {
+					
+				} else {
+					textField.returnKeyType = Titanium.UI.RETURNKEY_DONE;
+				}
 
 			}
 
@@ -132,14 +190,16 @@ for (var i = 0; i < number_line; i++) {
 						empty_cells--;
 					} else {
 						element.color = "#801A15";
+						timer(30);
 					}
 
 					Ti.API.info("empty_cells= " + empty_cells);
 					if (empty_cells == 0) {
 						stopGame(refreshId);
 					}
+					this.blur();
 				}
-
+				
 			});
 
 			// textField.top = tinyBorderHorizontal;
@@ -197,31 +257,42 @@ table.setData(tableData);
 
  */
 
-
 $.Sudoku.add(table);
+refreshId = setInterval(timer, 1000);
 
-setInterval(function() {
-	$.Second.text++;
-	if ($.Second.text >= 0 && $.Second.text < 10) {
-		$.Second.text = "0" + $.Second.text;
-	}
-	if ($.Second.text % 60 == 0) {
-		$.Minute.text++;
-		if ($.Minute.text >= 0 && $.Minute.text < 10) {
-			$.Minute.text = "0" + $.Minute.text;
-		}
+function showKeyboardToobar(element) {
 
-		$.Second.text = 0;
+	Ti.API.info( typeof element);
+	//element.keyboardToolbar.visible = true;
+	//	Titanium.App.keyboardVisible = true;
 
-		if ($.Minute.text % 60 == 0) {
-			$.Hour.text++;
-			$.Minute.text = 00;
-			if ($.Hour.text > 0 && $.Hour.text < 10) {
-				$.Hour.text = "0" + $.Hour.text;
-			}
+	//element.keyboardToolbar.animate(keyboarToolbarAnimation);
+	
 
-		}
-	}
+}
 
-}, 1000);
+function hideKeyboardToobar(element) {
 
+
+	element.blur();
+	//element.keyboardToolbar.visible = false;
+	//Titanium.App.keyboardVisible = false;
+	//element.keyboardToolbar.animate(keyboarToolbarAnimation);
+}
+
+Titanium.App.addEventListener('showKeyboardToolbar', function(e) {
+
+	var myNewObject = JSON.parse(e.textField );
+	Ti.API.info("mon objet :" + myNewObject);
+	showKeyboardToobar(myNewObject);
+});
+
+Titanium.App.addEventListener('hideKeyboardToolbar', function(e) {
+	var myNewObject = JSON.parse(e.textField);
+	hideKeyboardToobar(myNewObject);
+});
+
+var iOS_seven = isIOS_Seven_Plus();
+var theTop = iOS_seven ? 20 : 0;
+var window = $.windowTable;
+window.top = theTop;

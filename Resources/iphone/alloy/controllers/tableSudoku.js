@@ -8,11 +8,36 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
+    function isIOS_Seven_Plus() {
+        var version = Titanium.Platform.version.split(".");
+        var major = parseInt(version[0], 10);
+        if (major >= 7) return true;
+        return false;
+    }
+    function timer(addTime) {
+        var left_over = 0;
+        var second = parseInt($.Second.text, 10);
+        var minute = parseInt($.Minute.text, 10);
+        var hour = parseInt($.Hour.text, 10);
+        addTime ? second += addTime : second++;
+        if (second >= 60) {
+            var left_over = second % 60;
+            second = left_over;
+            minute++;
+            if (minute >= 60) {
+                minute = 0;
+                hour++;
+            }
+        }
+        $.Second.text = second >= 0 && 10 > second ? "0" + second : second;
+        $.Minute.text = minute >= 0 && 10 > minute ? "0" + minute : minute;
+        hour >= 0 && 10 > hour ? $.Hour.text = "0" + hour : $.hour.text = hour;
+    }
     function stopGame(refreshIntervalId) {
         clearInterval(refreshIntervalId);
     }
     function verify_valueElement(e) {
-        var letters = /^[0-9]+$/;
+        var letters = /^[1-9]+$/;
         if (e.value != e.source.oldValue) if (e.value.match(letters)) {
             e.value = e.value % 10;
             e.source.oldValue = e.value;
@@ -21,6 +46,12 @@ function Controller() {
             e.source.oldValue = e.value;
             e.source.value = e.value;
         } else e.source.value = "";
+    }
+    function showKeyboardToobar(element) {
+        Ti.API.info(typeof element);
+    }
+    function hideKeyboardToobar(element) {
+        element.blur();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "tableSudoku";
@@ -119,8 +150,8 @@ function Controller() {
         height: Titanium.UI.SIZE,
         width: Titanium.UI.FILL,
         layout: "horizontal",
-        left: "1%",
         top: "1%",
+        backgroundColor: "#FFFFFF",
         id: "Sudoku"
     });
     $.__views.__alloyId0.add($.__views.Sudoku);
@@ -148,7 +179,6 @@ function Controller() {
     var args = arguments[0];
     var sudoku = [];
     var sudoku = args.table;
-    Ti.API.info(sudoku);
     var width = Titanium.Platform.displayCaps.platformWidth;
     var height = .6 * Titanium.Platform.displayCaps.platformHeight;
     var tinyBorderHorizontal = .005 * height;
@@ -199,7 +229,7 @@ function Controller() {
             for (var j = 0; number_column > j; j++) {
                 var random = Math.floor(1e3 * Math.random());
                 if ((Math.floor(j / 3) + 3 * Math.floor(i / 3)) % 2 === 0) var color = first_color; else var color = second_color;
-                var hide = random % 3 == 0 || random % 5 == 0 || random % 7 == 0 || random % 13 == 0 || random % 17 == 0 || random % 19 == 0 || random % 23 == 0 || random % 29 == 0;
+                var hide = random % 5 == 0 || random % 7 == 0 || random % 13 == 0 || random % 17 == 0 || random % 19 == 0 || random % 23 == 0 || random % 29 == 0;
                 if (hide) {
                     var textField = Ti.UI.createTextField({
                         keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
@@ -228,9 +258,13 @@ function Controller() {
                         if (sudoku[fields[1]][fields[2]] == e.source.value) {
                             element.color = "#1E6912";
                             empty_cells--;
-                        } else element.color = "#801A15";
+                        } else {
+                            element.color = "#801A15";
+                            timer(30);
+                        }
                         Ti.API.info("empty_cells= " + empty_cells);
                         0 == empty_cells && stopGame(refreshId);
+                        this.blur();
                     }
                 });
                 LineSudokuView.add(textField);
@@ -270,20 +304,20 @@ function Controller() {
     row.add(HorizontalBorder);
     table.setData(tableData);
     $.Sudoku.add(table);
-    setInterval(function() {
-        $.Second.text++;
-        $.Second.text >= 0 && $.Second.text < 10 && ($.Second.text = "0" + $.Second.text);
-        if ($.Second.text % 60 == 0) {
-            $.Minute.text++;
-            $.Minute.text >= 0 && $.Minute.text < 10 && ($.Minute.text = "0" + $.Minute.text);
-            $.Second.text = 0;
-            if ($.Minute.text % 60 == 0) {
-                $.Hour.text++;
-                $.Minute.text = 0;
-                $.Hour.text > 0 && $.Hour.text < 10 && ($.Hour.text = "0" + $.Hour.text);
-            }
-        }
-    }, 1e3);
+    refreshId = setInterval(timer, 1e3);
+    Titanium.App.addEventListener("showKeyboardToolbar", function(e) {
+        var myNewObject = JSON.parse(e.textField);
+        Ti.API.info("mon objet :" + myNewObject);
+        showKeyboardToobar(myNewObject);
+    });
+    Titanium.App.addEventListener("hideKeyboardToolbar", function(e) {
+        var myNewObject = JSON.parse(e.textField);
+        hideKeyboardToobar(myNewObject);
+    });
+    var iOS_seven = isIOS_Seven_Plus();
+    var theTop = iOS_seven ? 20 : 0;
+    var window = $.windowTable;
+    window.top = theTop;
     _.extend($, exports);
 }
 

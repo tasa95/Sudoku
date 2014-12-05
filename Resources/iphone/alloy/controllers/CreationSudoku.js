@@ -24,10 +24,14 @@ function Controller() {
         return sortTable(table);
     }
     function setProb(sector, column, values) {
-        tableTry = [];
+        var tableTry = [];
         Array.isArray(column) || (column = []);
         Array.isArray(sector) || (sector = []);
         for (var i = 0; i < values.length; i++) -1 == column.indexOf(values[i]) && -1 == sector.indexOf(values[i]) && tableTry.push(values[i]);
+        if (0 == tableTry.length) {
+            Ti.API.error("table lot = 0");
+            Ti.API.error("values add = " + values);
+        }
         return tableTry;
     }
     function setRandom(listOfProb) {
@@ -48,7 +52,9 @@ function Controller() {
             }
             1 == ListOfListOfValues[i].length && numberOfUniqueProb++;
         }
-        return 9 != numberOfUniqueProb ? index : -1;
+        if (9 == tableIndex_check.length) return -1;
+        if (9 != numberOfUniqueProb) return index;
+        for (var i = 0; i < ListOfListOfValues.length; i++) if (-1 == tableIndex_check.indexOf(i)) return i;
     }
     function AffichageInConsole(tableSudoku) {
         var string = "";
@@ -63,10 +69,7 @@ function Controller() {
         var table_number = [];
         var compteur = [];
         if (probTableSudoku[index].length > 1) {
-            for (var y = 0; y < probTableSudoku.length; y++) for (var x = 0; x < probTableSudoku[y].length; x++) {
-                index != y;
-                table_number.push(probTableSudoku[y][x]);
-            }
+            for (var y = 0; y < probTableSudoku.length; y++) for (var x = 0; x < probTableSudoku[y].length; x++) index != y && table_number.push(probTableSudoku[y][x]);
             for (var x = 0; x < probTableSudoku.length; x++) for (var y = 0; y < probTableSudoku[x].length; y++) if (index != x) {
                 compteur[probTableSudoku[x][y]] && "undefined" != typeof compteur[probTableSudoku[x][y]] || (compteur[probTableSudoku[x][y]] = 0);
                 compteur[probTableSudoku[x][y]]++;
@@ -85,16 +88,18 @@ function Controller() {
         }
         Ti.API.info("index = " + index);
         Ti.API.info("value = " + probTableSudoku[index][0]);
+        Ti.API.info("value = " + probTableSudoku[index]);
         return probTableSudoku[index];
     }
-    function insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
-        tableIndex_check.push(index);
-        tableSudoku[i][index] = setRandom(getValues(i, probTableSudoku[i], index));
+    function insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
+        tableSudoku[i][index] = setRandom(probTableSudoku[i].length > 1 ? getValues(i, probTableSudoku[i], index) : probTableSudoku[i]);
         "undefined" != typeof tableColumn[index] && tableColumn[index] && Array.isArray(tableColumn[index]) || (tableColumn[index] = []);
         "undefined" != typeof tableSector[Math.floor(index / 3) + 3 * Math.floor(i / 3)] && tableSector[Math.floor(index / 3) + Math.floor(i / 3)] && Array.isArray(tableSector[Math.floor(index / 3) + Math.floor(i / 3)]) || (tableSector[Math.floor(index / 3) + 3 * Math.floor(i / 3)] = []);
         tableColumn[index].push(tableSudoku[i][index]);
         tableSector[Math.floor(index / 3) + 3 * Math.floor(i / 3)].push(tableSudoku[i][index]);
-        table[i].splice(table[i].indexOf(tableSudoku[i][index]), 1);
+        table[i] = table[i].filter(function(element) {
+            return element != tableSudoku[i][index];
+        });
         AffichageInConsole(tableSudoku);
     }
     function sortTable(table) {
@@ -129,19 +134,15 @@ function Controller() {
                 tableTry = [];
             }
             var index = checkWhereThereIsLessProb(probTableSudoku[i], tableIndex_check);
-            if (-1 != index && -1 == tableIndex_check.indexOf(index)) insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry); else if (-1 == index) {
-                index = -1;
-                while (8 > index) {
-                    index++;
-                    -1 === tableIndex_check.indexOf(index) && insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry);
-                }
-                if (8 == index) {
-                    i++;
-                    j = 0;
-                    tableIndex_check = [];
-                    probTableSudoku[i] = [];
-                    tableSudoku[i] = [];
-                }
+            if (-1 != index && -1 == tableIndex_check.indexOf(index)) {
+                insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table);
+                tableIndex_check.push(index);
+            } else {
+                i++;
+                j = 0;
+                tableIndex_check = [];
+                probTableSudoku[i] = [];
+                tableSudoku[i] = [];
             }
         }
         return tableSudoku;

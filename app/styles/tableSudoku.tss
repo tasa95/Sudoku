@@ -63,8 +63,9 @@
 	height: Titanium.UI.SIZE,
 	width: Titanium.UI.FILL,
 	layout: "horizontal",
-	left: "1%",
-	top: "1%"
+
+	top: "1%",
+	backgroundColor : "#FFFFFF"
 }
 
 "ScrollView":{
