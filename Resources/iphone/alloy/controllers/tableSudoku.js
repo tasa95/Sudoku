@@ -73,14 +73,14 @@ function Controller() {
         id: "windowTable"
     });
     $.__views.windowTable && $.addTopLevelView($.__views.windowTable);
-    $.__views.__alloyId0 = Ti.UI.createView({
+    $.__views.parent_view = Ti.UI.createView({
         layout: "vertical",
         width: Titanium.UI.FILL,
         height: Titanium.UI.SIZE,
         top: "5%",
-        id: "__alloyId0"
+        id: "parent_view"
     });
-    $.__views.windowTable.add($.__views.__alloyId0);
+    $.__views.windowTable.add($.__views.parent_view);
     $.__views.Time = Ti.UI.createView({
         width: "40%",
         height: Titanium.UI.SIZE,
@@ -95,7 +95,7 @@ function Controller() {
         borderRadius: 15,
         id: "Time"
     });
-    $.__views.__alloyId0.add($.__views.Time);
+    $.__views.parent_view.add($.__views.Time);
     $.__views.Hour = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -106,16 +106,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Hour);
-    $.__views.__alloyId1 = Ti.UI.createLabel({
+    $.__views.__alloyId0 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "2%",
         text: ":",
-        id: "__alloyId1"
+        id: "__alloyId0"
     });
-    $.__views.Time.add($.__views.__alloyId1);
+    $.__views.Time.add($.__views.__alloyId0);
     $.__views.Minute = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -126,16 +126,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Minute);
-    $.__views.__alloyId2 = Ti.UI.createLabel({
+    $.__views.__alloyId1 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "2%",
         text: ":",
-        id: "__alloyId2"
+        id: "__alloyId1"
     });
-    $.__views.Time.add($.__views.__alloyId2);
+    $.__views.Time.add($.__views.__alloyId1);
     $.__views.Second = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -154,14 +154,14 @@ function Controller() {
         backgroundColor: "#FFFFFF",
         id: "Sudoku"
     });
-    $.__views.__alloyId0.add($.__views.Sudoku);
+    $.__views.parent_view.add($.__views.Sudoku);
     $.__views.Options = Ti.UI.createView({
         width: Titanium.UI.SIZE,
         height: Titanium.UI.SIZE,
         top: "1%",
         id: "Options"
     });
-    $.__views.__alloyId0.add($.__views.Options);
+    $.__views.parent_view.add($.__views.Options);
     $.__views.help = Ti.UI.createButton({
         width: "40%",
         height: Titanium.UI.SIZE,
@@ -200,6 +200,7 @@ function Controller() {
     });
     var number_line = sudoku.length - 1;
     var empty_cells = 0;
+    var listTextfield = [];
     for (var i = 0; number_line > i; i++) {
         var row = Ti.UI.createTableViewRow({
             className: "row",
@@ -249,6 +250,8 @@ function Controller() {
                 textField.textAlign = Titanium.UI.TEXT_ALIGNMENT_CENTER;
                 textField.backgroundColor = color;
                 textField.focusable = true;
+                listTextfield[j + 9 * i] = textField;
+                Ti.API.info(j + 9 * i);
                 textField.addEventListener("change", function(e) {
                     if (e.value != e.source.oldValue) {
                         verify_valueElement(e);
@@ -305,6 +308,12 @@ function Controller() {
     table.setData(tableData);
     $.Sudoku.add(table);
     refreshId = setInterval(timer, 1e3);
+    $.windowTable.addEventListener("click", function() {
+        for (var index = 0; index < listTextfield.length; index++) {
+            Ti.API.info(index);
+            listTextfield[index].blur();
+        }
+    });
     Titanium.App.addEventListener("showKeyboardToolbar", function(e) {
         var myNewObject = JSON.parse(e.textField);
         Ti.API.info("mon objet :" + myNewObject);

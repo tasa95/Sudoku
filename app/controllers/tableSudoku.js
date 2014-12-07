@@ -108,6 +108,7 @@ var table = Ti.UI.createTableView({
 
 var number_line = sudoku.length - 1;
 var empty_cells = 0;
+var listTextfield = []
 for (var i = 0; i < number_line; i++) {
 	var row = Ti.UI.createTableViewRow({
 		className : 'row',
@@ -172,13 +173,17 @@ for (var i = 0; i < number_line; i++) {
 				}
 
 			}
-
+			
 			textField.height = row_height;
 			textField.width = cell_width;
 			textField.textAlign = Titanium.UI.TEXT_ALIGNMENT_CENTER;
 			textField.backgroundColor = color;
 			textField.focusable = true;
+			listTextfield[ j + (i *9)] = textField; 
 
+			
+			
+			
 			textField.addEventListener('change', function(e) {
 				if (e.value != e.source.oldValue) {
 					verify_valueElement(e);
@@ -198,9 +203,10 @@ for (var i = 0; i < number_line; i++) {
 						stopGame(refreshId);
 					}
 					this.blur();
-				}
-				
+				}				
 			});
+			
+		
 
 			// textField.top = tinyBorderHorizontal;
 
@@ -259,6 +265,14 @@ table.setData(tableData);
 
 $.Sudoku.add(table);
 refreshId = setInterval(timer, 1000);
+
+	$.windowTable.addEventListener('click', function(e)
+			{
+				 for(var index= 0; index< listTextfield.length; index++){
+				 		Ti.API.info(index);
+       					 listTextfield[index].blur();             //Hiding each keyboards
+   				 }	
+			});
 
 function showKeyboardToobar(element) {
 
