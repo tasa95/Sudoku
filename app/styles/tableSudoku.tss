@@ -4,7 +4,7 @@
 	layout: "vertical",
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.SIZE,
-	top: "5%"
+	//top: "5%"
 }
 
 
@@ -12,11 +12,15 @@
 {
 	backgroundColor: "#166181"
 }
+".component":
+{
+	bottom : "6%"
+}
+
 ".info":
 {
 	width: Titanium.UI.SIZE,
 	height: Titanium.UI.SIZE,
-	top: 0
 }
 
 "#Time":{
@@ -24,13 +28,14 @@
 	font:{
 		fontSize: 24
 	},
-	top: "2%",
+
 	width: "40%" ,
 	height: Titanium.UI.SIZE,
-	left: "30%",
+	//left: "30%",
 	backgroundColor: "#FFFFFF",
 	borderColor: "#FFFFFF",
-	borderRadius: 15
+	borderRadius: 15,
+
 }
 
 ".chronometer":{
@@ -39,14 +44,14 @@
 		fontSize: 24
 	},
 
-	left: "2%"
+	left: "4%"
 }
 
 "#help":{
 
 	width: "40%" ,
 	height: Titanium.UI.SIZE,
-	left: "30%",
+	//left: "30%",
 	backgroundColor: "#FFFFFF",
 	borderColor: "#FFFFFF",
 	borderRadius: 15,
@@ -54,7 +59,7 @@
 }
 
 "#Options":{
-	top: "1%",
+	//top: "1%",
 	width: Titanium.UI.SIZE,
 	height: Titanium.UI.SIZE
 }
@@ -64,7 +69,7 @@
 	width: Titanium.UI.FILL,
 	layout: "horizontal",
 
-	top: "1%",
+	//top: "1%",
 	backgroundColor : "#FFFFFF"
 }
 
@@ -73,8 +78,6 @@
 	width: Titanium.UI.SIZE
 }
 
-"#parent_view":{
-	
-}
+"#parent_view":{}
 
 

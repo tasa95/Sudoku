@@ -47,12 +47,6 @@ function Controller() {
             e.source.value = e.value;
         } else e.source.value = "";
     }
-    function showKeyboardToobar(element) {
-        Ti.API.info(typeof element);
-    }
-    function hideKeyboardToobar(element) {
-        element.blur();
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "tableSudoku";
     if (arguments[0]) {
@@ -77,19 +71,17 @@ function Controller() {
         layout: "vertical",
         width: Titanium.UI.FILL,
         height: Titanium.UI.SIZE,
-        top: "5%",
         id: "parent_view"
     });
     $.__views.windowTable.add($.__views.parent_view);
     $.__views.Time = Ti.UI.createView({
+        bottom: "6%",
         width: "40%",
         height: Titanium.UI.SIZE,
-        top: "2%",
         layout: "horizontal",
         font: {
             fontSize: 24
         },
-        left: "30%",
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
@@ -101,7 +93,7 @@ function Controller() {
         font: {
             fontSize: 24
         },
-        left: "2%",
+        left: "4%",
         id: "Hour",
         text: "00"
     });
@@ -111,7 +103,7 @@ function Controller() {
         font: {
             fontSize: 24
         },
-        left: "2%",
+        left: "4%",
         text: ":",
         id: "__alloyId0"
     });
@@ -121,7 +113,7 @@ function Controller() {
         font: {
             fontSize: 24
         },
-        left: "2%",
+        left: "4%",
         id: "Minute",
         text: "00"
     });
@@ -131,7 +123,7 @@ function Controller() {
         font: {
             fontSize: 24
         },
-        left: "2%",
+        left: "4%",
         text: ":",
         id: "__alloyId1"
     });
@@ -141,31 +133,30 @@ function Controller() {
         font: {
             fontSize: 24
         },
-        left: "2%",
+        left: "4%",
         id: "Second",
         text: "00"
     });
     $.__views.Time.add($.__views.Second);
     $.__views.Sudoku = Ti.UI.createView({
+        bottom: "6%",
         height: Titanium.UI.SIZE,
         width: Titanium.UI.FILL,
         layout: "horizontal",
-        top: "1%",
         backgroundColor: "#FFFFFF",
         id: "Sudoku"
     });
     $.__views.parent_view.add($.__views.Sudoku);
     $.__views.Options = Ti.UI.createView({
+        bottom: "6%",
         width: Titanium.UI.SIZE,
         height: Titanium.UI.SIZE,
-        top: "1%",
         id: "Options"
     });
     $.__views.parent_view.add($.__views.Options);
     $.__views.help = Ti.UI.createButton({
         width: "40%",
         height: Titanium.UI.SIZE,
-        left: "30%",
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
@@ -251,7 +242,6 @@ function Controller() {
                 textField.backgroundColor = color;
                 textField.focusable = true;
                 listTextfield[j + 9 * i] = textField;
-                Ti.API.info(j + 9 * i);
                 textField.addEventListener("change", function(e) {
                     if (e.value != e.source.oldValue) {
                         verify_valueElement(e);
@@ -309,19 +299,7 @@ function Controller() {
     $.Sudoku.add(table);
     refreshId = setInterval(timer, 1e3);
     $.windowTable.addEventListener("click", function() {
-        for (var index = 0; index < listTextfield.length; index++) {
-            Ti.API.info(index);
-            listTextfield[index].blur();
-        }
-    });
-    Titanium.App.addEventListener("showKeyboardToolbar", function(e) {
-        var myNewObject = JSON.parse(e.textField);
-        Ti.API.info("mon objet :" + myNewObject);
-        showKeyboardToobar(myNewObject);
-    });
-    Titanium.App.addEventListener("hideKeyboardToolbar", function(e) {
-        var myNewObject = JSON.parse(e.textField);
-        hideKeyboardToobar(myNewObject);
+        for (var index = 0; index < listTextfield.length; index++) listTextfield[index].blur();
     });
     var iOS_seven = isIOS_Seven_Plus();
     var theTop = iOS_seven ? 20 : 0;

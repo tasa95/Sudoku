@@ -203,6 +203,7 @@ for (var i = 0; i < number_line; i++) {
 						stopGame(refreshId);
 					}
 					this.blur();
+					
 				}				
 			});
 			
@@ -269,42 +270,11 @@ refreshId = setInterval(timer, 1000);
 	$.windowTable.addEventListener('click', function(e)
 			{
 				 for(var index= 0; index< listTextfield.length; index++){
-				 		Ti.API.info(index);
+				 		//Ti.API.info(index);
        					 listTextfield[index].blur();             //Hiding each keyboards
-   				 }	
+   				 }
 			});
 
-function showKeyboardToobar(element) {
-
-	Ti.API.info( typeof element);
-	//element.keyboardToolbar.visible = true;
-	//	Titanium.App.keyboardVisible = true;
-
-	//element.keyboardToolbar.animate(keyboarToolbarAnimation);
-	
-
-}
-
-function hideKeyboardToobar(element) {
-
-
-	element.blur();
-	//element.keyboardToolbar.visible = false;
-	//Titanium.App.keyboardVisible = false;
-	//element.keyboardToolbar.animate(keyboarToolbarAnimation);
-}
-
-Titanium.App.addEventListener('showKeyboardToolbar', function(e) {
-
-	var myNewObject = JSON.parse(e.textField );
-	Ti.API.info("mon objet :" + myNewObject);
-	showKeyboardToobar(myNewObject);
-});
-
-Titanium.App.addEventListener('hideKeyboardToolbar', function(e) {
-	var myNewObject = JSON.parse(e.textField);
-	hideKeyboardToobar(myNewObject);
-});
 
 var iOS_seven = isIOS_Seven_Plus();
 var theTop = iOS_seven ? 20 : 0;

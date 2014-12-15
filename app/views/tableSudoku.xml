@@ -2,15 +2,15 @@
 	<Window id="windowTable">
 		<View class="container" id="parent_view">
 
-			<View id = "Time" class ="info">
+			<View id = "Time" class ="info component">
 				<Label id="Hour" class="chronometer" text="00"></Label>
 				<Label class="chronometer" text="00" text=":"></Label>
 				<Label id="Minute" class="chronometer" text="00"></Label>
 				<Label class="chronometer" text="00" text=":"></Label>
 				<Label id="Second" class="chronometer" text="00"></Label>
 			</View>
-			<View id="Sudoku"></View>
-			<View id ="Options" class ="info">
+			<View id="Sudoku" class="component"></View>
+			<View id ="Options" class ="info component">
 				<Button id="help" textAlign="Center" title = "AIDE"></Button>
 			</View>
 		</View>
