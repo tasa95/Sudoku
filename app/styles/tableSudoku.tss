@@ -47,9 +47,9 @@
 	left: "4%"
 }
 
-"#help":{
+"#jeu":{
 
-	width: "40%" ,
+	width: "80%" ,
 	height: Titanium.UI.SIZE,
 	//left: "30%",
 	backgroundColor: "#FFFFFF",

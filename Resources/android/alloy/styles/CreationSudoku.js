@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100000.0002,"key":"Container","style":{}},{"isId":true,"priority":100000.0003,"key":"windowActivity","style":{backgroundColor:"#166181",}},{"isId":true,"priority":100000.0004,"key":"activityIndicator","style":{style:Ti.UI.ActivityIndicatorStyle.DARK,indicatorColor:"White",color:"Black",height:Ti.UI.SIZE,width:Ti.UI.SIZE,}}];

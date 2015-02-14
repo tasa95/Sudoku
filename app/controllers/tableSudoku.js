@@ -12,6 +12,11 @@ function isIOS_Seven_Plus() {
 	return false;
 }
 
+function createNewGame() {
+	var c = Alloy.createController("newGame",{});
+	c.getView().open() ; 		
+}
+
 function timer(addTime) {
 	var left_over = 0;
 	var second = parseInt($.Second.text, 10);
@@ -70,6 +75,7 @@ var first_color = '#FFFFFF';
 
 function stopGame(refreshIntervalId) {
 	clearInterval(refreshIntervalId);
+	createNewGame();
 }
 
 function verify_valueElement(e) {
@@ -108,8 +114,9 @@ var table = Ti.UI.createTableView({
 
 var number_line = sudoku.length - 1;
 var empty_cells = 0;
-var listTextfield = []
+listTextfield = [];
 for (var i = 0; i < number_line; i++) {
+
 	var row = Ti.UI.createTableViewRow({
 		className : 'row',
 		objName : 'row_' + i,
@@ -123,8 +130,13 @@ for (var i = 0; i < number_line; i++) {
 		editable : false,
 		touchEnabled : false,
 		allowsSelection : false,
-		selectionStyle : Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
 	});
+
+	if (Titanium.Platform.name == 'iPhone OS') {
+		row.selectionStyle = Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE;
+	} else {
+
+	}
 
 	var LineSudokuView = Ti.UI.createView({
 		backgroundColor : '#FFFFFF',
@@ -167,23 +179,20 @@ for (var i = 0; i < number_line; i++) {
 				//textField.returnKeyType = Titanium.UI.RETURNKEY_GO;
 
 				if ( typeof Ti.Platform.name !== 'undefined' && Ti.Platform.name === 'iPhone OS') {
-					
+
 				} else {
 					textField.returnKeyType = Titanium.UI.RETURNKEY_DONE;
 				}
 
 			}
-			
+
 			textField.height = row_height;
 			textField.width = cell_width;
 			textField.textAlign = Titanium.UI.TEXT_ALIGNMENT_CENTER;
 			textField.backgroundColor = color;
 			textField.focusable = true;
-			listTextfield[ j + (i *9)] = textField; 
+			listTextfield[j + (i * 9)] = textField;
 
-			
-			
-			
 			textField.addEventListener('change', function(e) {
 				if (e.value != e.source.oldValue) {
 					verify_valueElement(e);
@@ -195,19 +204,63 @@ for (var i = 0; i < number_line; i++) {
 						empty_cells--;
 					} else {
 						element.color = "#801A15";
-						timer(30);
+						if (e.source.value != "")
+							timer(30);
+						showMessageTimeout = function(customMessage, interval) {
+							// window container
+							indWin = Titanium.UI.createWindow();
+
+							//  view
+							var indView = Titanium.UI.createView({
+								height : 50,
+								width : 250,
+								borderRadius : 10,
+								backgroundColor : '#aaa',
+								opacity : .7
+							});
+
+							indWin.add(indView);
+
+							// message
+							var message = Titanium.UI.createLabel({
+								text : customMessage && typeof (customMessage !== 'undefined') ? customMessage : L('please_wait'),
+								color : '#fff',
+								width : 'auto',
+								height : 'auto',
+								textAlign : 'center',
+								font : {
+									fontFamily : 'Helvetica Neue',
+									fontSize : 12,
+									fontWeight : 'bold'
+								}
+							});
+
+							indView.add(message);
+							indWin.open();
+
+							interval = interval ? interval : 3000;
+							setTimeout(function() {
+								indWin.close({
+									opacity : 0,
+									duration : 1000
+								});
+							}, interval);
+						};
+
+						showMessageTimeout("Pénalité de 30 sec", 200);
 					}
 
 					Ti.API.info("empty_cells= " + empty_cells);
 					if (empty_cells == 0) {
 						stopGame(refreshId);
+						for (var i = 0; i < listTextfield.length; i++) {
+							listTextfield[i].touchEnabled = false;
+						}
 					}
 					this.blur();
-					
-				}				
+
+				}
 			});
-			
-		
 
 			// textField.top = tinyBorderHorizontal;
 
@@ -253,28 +306,17 @@ var HorizontalBorder = Ti.UI.createView({
 });
 row.add(HorizontalBorder);
 table.setData(tableData);
-/*
- table.addEventListener('swipe', function(e){
- if (e.source && e.source.objName !== 'table'){
- Ti.API.info('Row swiped: ' + e.source);
- Ti.API.info('Row swiped: ' + e.source.objName);
- Ti.API.info('Row ID : ' + e.source.rowID);
- }
- });
-
- */
 
 $.Sudoku.add(table);
 refreshId = setInterval(timer, 1000);
 
-	$.windowTable.addEventListener('click', function(e)
-			{
-				 for(var index= 0; index< listTextfield.length; index++){
-				 		//Ti.API.info(index);
-       					 listTextfield[index].blur();             //Hiding each keyboards
-   				 }
-			});
-
+$.windowTable.addEventListener('click', function(e) {
+	for (var index = 0; index < listTextfield.length; index++) {
+		//Ti.API.info(index);
+		listTextfield[index].blur();
+		//Hiding each keyboards
+	}
+});
 
 var iOS_seven = isIOS_Seven_Plus();
 var theTop = iOS_seven ? 20 : 0;

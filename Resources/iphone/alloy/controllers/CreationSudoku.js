@@ -15,6 +15,24 @@ function Controller() {
         tableSudokuController.getView().open();
         $.windowActivity.hide();
     }
+    function VerificationIntegritySudoku(sudoku) {
+        var integrity = true;
+        var i = 0;
+        var j = 0;
+        while (integrity && i != sudoku.length) {
+            Ti.API.debug("|");
+            while (integrity && j != sudoku[i].length) {
+                if ("undefined" == typeof sudoku[i][j] || "" == sudoku[i][j]) {
+                    integrity = false;
+                    Ti.API.debug("_");
+                } else Ti.API.debug(sudoku[i][j]);
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+        return integrity;
+    }
     function InitTable() {
         var table = [];
         for (var i = 0; 9 > i; i++) {
@@ -29,8 +47,8 @@ function Controller() {
         Array.isArray(sector) || (sector = []);
         for (var i = 0; i < values.length; i++) -1 == column.indexOf(values[i]) && -1 == sector.indexOf(values[i]) && tableTry.push(values[i]);
         if (0 == tableTry.length) {
-            Ti.API.error("table lot = 0");
-            Ti.API.error("values add = " + values);
+            Ti.API.debug("table lot = 0");
+            Ti.API.debug("values add = " + values);
         }
         return tableTry;
     }
@@ -63,7 +81,7 @@ function Controller() {
             for (var j = 0; 9 > j; j++) string += "undefined" != typeof tableSudoku && "undefined" != typeof tableSudoku[i] && tableSudoku[i][j] && Array.isArray(tableSudoku[i]) ? tableSudoku[i][j] : "_";
             string += "|\n";
         }
-        Ti.API.info("tableau " + string);
+        Ti.API.debug("tableau " + string);
     }
     function getValues(i, probTableSudoku, index) {
         var table_number = [];
@@ -76,7 +94,7 @@ function Controller() {
             }
             var less = 100;
             var tab_value = [];
-            Ti.API.info("index = " + index);
+            Ti.API.debug("index = " + index);
             for (var y = 1; y < compteur.length; y++) if (compteur[y] < less) {
                 if (-1 !== probTableSudoku[index].indexOf(y)) {
                     tab_value = [];
@@ -86,9 +104,9 @@ function Controller() {
             } else compteur[y] == less && -1 !== probTableSudoku[index].indexOf(y) && tab_value.push(y);
             return tab_value;
         }
-        Ti.API.info("index = " + index);
-        Ti.API.info("value = " + probTableSudoku[index][0]);
-        Ti.API.info("value = " + probTableSudoku[index]);
+        Ti.API.debug("index = " + index);
+        Ti.API.debug("value = " + probTableSudoku[index][0]);
+        Ti.API.debug("value = " + probTableSudoku[index]);
         return probTableSudoku[index];
     }
     function insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
@@ -118,11 +136,11 @@ function Controller() {
             for (j = 0; 9 > j; j++) {
                 if ("undefined" == typeof tableColumn[j] || !tableColumn[j] || !Array.isArray(tableColumn[i])) {
                     tableColumn[j] = [];
-                    Ti.API.info("tabColumn = " + j);
+                    Ti.API.debug("tabColumn = " + j);
                 }
                 if (!tableSector[Math.floor(j / 3) + 3 * Math.floor(i / 3)]) {
                     tableSector[Math.floor(j / 3) + 3 * Math.floor(i / 3)] = [];
-                    Ti.API.info("tabSector = " + Math.floor(j / 3) + Math.floor(i / 3));
+                    Ti.API.debug("tabSector = " + Math.floor(j / 3) + Math.floor(i / 3));
                 }
                 if (-1 == tableIndex_check.indexOf(j)) {
                     tableTry = setProb(tableSector[Math.floor(j / 3) + 3 * Math.floor(i / 3)], tableColumn[j], table[i]);
@@ -185,7 +203,8 @@ function Controller() {
     style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
     $.activityIndicator.style = style;
     $.activityIndicator.show();
-    var sudoku = InitTable();
+    var sudoku;
+    do sudoku = InitTable(); while (false == VerificationIntegritySudoku(sudoku));
     $.activityIndicator.hide();
     goToSudoku(sudoku);
     _.extend($, exports);

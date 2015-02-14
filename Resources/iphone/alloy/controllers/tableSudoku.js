@@ -14,6 +14,10 @@ function Controller() {
         if (major >= 7) return true;
         return false;
     }
+    function createNewGame() {
+        var c = Alloy.createController("newGame", {});
+        c.getView().open();
+    }
     function timer(addTime) {
         var left_over = 0;
         var second = parseInt($.Second.text, 10);
@@ -35,6 +39,7 @@ function Controller() {
     }
     function stopGame(refreshIntervalId) {
         clearInterval(refreshIntervalId);
+        createNewGame();
     }
     function verify_valueElement(e) {
         var letters = /^[1-9]+$/;
@@ -62,6 +67,7 @@ function Controller() {
     }
     var $ = this;
     var exports = {};
+    var __defers = {};
     $.__views.windowTable = Ti.UI.createWindow({
         backgroundColor: "#166181",
         id: "windowTable"
@@ -98,16 +104,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Hour);
-    $.__views.__alloyId0 = Ti.UI.createLabel({
+    $.__views.__alloyId3 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "4%",
         text: ":",
-        id: "__alloyId0"
+        id: "__alloyId3"
     });
-    $.__views.Time.add($.__views.__alloyId0);
+    $.__views.Time.add($.__views.__alloyId3);
     $.__views.Minute = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -118,16 +124,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Minute);
-    $.__views.__alloyId1 = Ti.UI.createLabel({
+    $.__views.__alloyId4 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "4%",
         text: ":",
-        id: "__alloyId1"
+        id: "__alloyId4"
     });
-    $.__views.Time.add($.__views.__alloyId1);
+    $.__views.Time.add($.__views.__alloyId4);
     $.__views.Second = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -154,17 +160,18 @@ function Controller() {
         id: "Options"
     });
     $.__views.parent_view.add($.__views.Options);
-    $.__views.help = Ti.UI.createButton({
-        width: "40%",
+    $.__views.jeu = Ti.UI.createButton({
+        width: "80%",
         height: Titanium.UI.SIZE,
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
         textAlign: "Center",
-        id: "help",
-        title: "AIDE"
+        id: "jeu",
+        title: "Nouveau Jeu"
     });
-    $.__views.Options.add($.__views.help);
+    $.__views.Options.add($.__views.jeu);
+    createNewGame ? $.__views.jeu.addEventListener("click", createNewGame) : __defers["$.__views.jeu!click!createNewGame"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0];
@@ -191,7 +198,7 @@ function Controller() {
     });
     var number_line = sudoku.length - 1;
     var empty_cells = 0;
-    var listTextfield = [];
+    listTextfield = [];
     for (var i = 0; number_line > i; i++) {
         var row = Ti.UI.createTableViewRow({
             className: "row",
@@ -205,9 +212,9 @@ function Controller() {
             focusable: false,
             editable: false,
             touchEnabled: false,
-            allowsSelection: false,
-            selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE
+            allowsSelection: false
         });
+        row.selectionStyle = Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE;
         var LineSudokuView = Ti.UI.createView({
             backgroundColor: "#FFFFFF",
             objName: "horizontalView",
@@ -253,10 +260,46 @@ function Controller() {
                             empty_cells--;
                         } else {
                             element.color = "#801A15";
-                            timer(30);
+                            "" != e.source.value && timer(30);
+                            showMessageTimeout = function(customMessage, interval) {
+                                indWin = Titanium.UI.createWindow();
+                                var indView = Titanium.UI.createView({
+                                    height: 50,
+                                    width: 250,
+                                    borderRadius: 10,
+                                    backgroundColor: "#aaa",
+                                    opacity: .7
+                                });
+                                indWin.add(indView);
+                                var message = Titanium.UI.createLabel({
+                                    text: customMessage && typeof ("undefined" !== customMessage) ? customMessage : L("please_wait"),
+                                    color: "#fff",
+                                    width: "auto",
+                                    height: "auto",
+                                    textAlign: "center",
+                                    font: {
+                                        fontFamily: "Helvetica Neue",
+                                        fontSize: 12,
+                                        fontWeight: "bold"
+                                    }
+                                });
+                                indView.add(message);
+                                indWin.open();
+                                interval = interval ? interval : 3e3;
+                                setTimeout(function() {
+                                    indWin.close({
+                                        opacity: 0,
+                                        duration: 1e3
+                                    });
+                                }, interval);
+                            };
+                            showMessageTimeout("Pénalité de 30 sec", 200);
                         }
                         Ti.API.info("empty_cells= " + empty_cells);
-                        0 == empty_cells && stopGame(refreshId);
+                        if (0 == empty_cells) {
+                            stopGame(refreshId);
+                            for (var i = 0; i < listTextfield.length; i++) listTextfield[i].touchEnabled = false;
+                        }
                         this.blur();
                     }
                 });
@@ -305,6 +348,7 @@ function Controller() {
     var theTop = iOS_seven ? 20 : 0;
     var window = $.windowTable;
     window.top = theTop;
+    __defers["$.__views.jeu!click!createNewGame"] && $.__views.jeu.addEventListener("click", createNewGame);
     _.extend($, exports);
 }
 

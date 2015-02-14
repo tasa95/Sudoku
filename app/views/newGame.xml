@@ -1,0 +1,13 @@
+<Alloy>
+	<Window id="NewGameWindow">
+	<View class="container">
+		<View class="centerOptions">
+			<Label id ="generateNewGame" text="Voulez vous générer un nouveau sudoku " ></Label>
+			<View class="buttonOptions">
+				<Button class="button" id="buttonNo" title="Non" onClick="closeWindow"></Button>
+				<Button class="button" id="buttonOui" title="Oui" onClick="newGame"></Button>
+			</View>	
+		</View>
+	</View>
+	</Window>
+</Alloy>

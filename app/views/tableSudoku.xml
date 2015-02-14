@@ -11,7 +11,7 @@
 			</View>
 			<View id="Sudoku" class="component"></View>
 			<View id ="Options" class ="info component">
-				<Button id="help" textAlign="Center" title = "AIDE"></Button>
+				<Button id="jeu" textAlign="Center" title = "Nouveau Jeu" onClick ="createNewGame"></Button>
 			</View>
 		</View>
 	</Window>

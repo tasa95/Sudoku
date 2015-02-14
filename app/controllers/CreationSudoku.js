@@ -4,8 +4,37 @@ function goToSudoku(sudoku) {
 	});
 	tableSudokuController.getView().open();
 	$.windowActivity.hide();
-
+	
 }
+
+function VerificationIntegritySudoku(sudoku)
+{
+	var integrity = true;
+	var i = 0;
+	var j =0;
+	while(integrity && i != sudoku.length)
+	{
+		Ti.API.debug("|");
+		while(integrity && j != sudoku[i].length)
+		{
+			
+			if(  typeof sudoku [i][j] == "undefined" || sudoku[i][j] == "" )
+			{
+				integrity = false;
+				Ti.API.debug("_");
+			}
+			else
+			{
+				Ti.API.debug(sudoku[i][j]);
+			}
+			j++;
+		}
+		j=0;
+		i++;
+	}
+	return integrity;
+}
+
 
 function InitTable() {
 	var table = [];
@@ -36,8 +65,8 @@ function setProb(sector, column, values) {
 	}
 	if(tableTry.length == 0)
 	{
-		Ti.API.error("table lot = 0");	
-		Ti.API.error("values add = " + values);	
+		Ti.API.debug("table lot = 0");	
+		Ti.API.debug("values add = " + values);	
 	}
 	
 	return tableTry;
@@ -116,7 +145,7 @@ function AffichageInConsole(tableSudoku) {
 		}
 		string += "|\n";
 	}
-	Ti.API.info("tableau " + string);
+	Ti.API.debug("tableau " + string);
 }
 
 function getValues(i, probTableSudoku, index) {
@@ -143,7 +172,7 @@ function getValues(i, probTableSudoku, index) {
 		var less = 100;
 		var value = 0;
 		var tab_value = [];
-		Ti.API.info("index = " + index);
+		Ti.API.debug("index = " + index);
 		for (var y = 1; y < compteur.length; y++) {
 			if (compteur[y] < less) {
 				if (probTableSudoku[index].indexOf(y) !== -1) {
@@ -164,10 +193,9 @@ function getValues(i, probTableSudoku, index) {
 		}
 		return tab_value;
 	} else {
-		Ti.API.info("index = " + index);
-
-		Ti.API.info("value = " + probTableSudoku[index][0]);
-		Ti.API.info("value = " + probTableSudoku[index]);
+		Ti.API.debug("index = " + index);
+		Ti.API.debug("value = " + probTableSudoku[index][0]);
+		Ti.API.debug("value = " + probTableSudoku[index]);
 
 		return probTableSudoku[index];
 	}
@@ -219,16 +247,16 @@ function sortTable(table) {
 	probTableSudoku[0] = [];
 	if (Array.isArray(table)) {
 		while (i < 9) {
-
 			for ( j = 0; j < 9; j++) {
 				if ( typeof tableColumn[j] === 'undefined' || !(tableColumn[j]) || !(Array.isArray(tableColumn[i]))) {
 					tableColumn[j] = [];
-					Ti.API.info("tabColumn = " + j);
+					Ti.API.debug("tabColumn = " + j);
+					
 				}
 
 				if (!(tableSector[Math.floor(j / 3) + Math.floor(i / 3) * 3] )) {
 					tableSector[Math.floor(j / 3) + Math.floor(i / 3) * 3] = [];
-					Ti.API.info("tabSector = " + Math.floor(j / 3) + Math.floor(i / 3));
+					Ti.API.debug("tabSector = " + Math.floor(j / 3) + Math.floor(i / 3));
 				}
 
 				if (tableIndex_check.indexOf(j) == -1) {
@@ -276,10 +304,16 @@ if ( typeof Ti.Platform.name !== 'undefined') {
 }
 
 $.activityIndicator.show();
+var sudoku;
+do{
+	sudoku = InitTable();	
+}
+while(VerificationIntegritySudoku(sudoku) == false);
 
-var sudoku = InitTable();
 
 $.activityIndicator.hide();
-
 goToSudoku(sudoku);
+
+
+
 
