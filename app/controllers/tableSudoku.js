@@ -13,8 +13,10 @@ function isIOS_Seven_Plus() {
 }
 
 function createNewGame() {
-	var c = Alloy.createController("newGame",{});
-	c.getView().open() ; 		
+	$.windowTable.close();
+	Ti.App.fireEvent('new_game', {
+		retour : 0
+	});
 }
 
 function timer(addTime) {

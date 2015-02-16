@@ -1,40 +1,50 @@
+// Function to test if device is iOS 7 or later
+function isIOS_Seven_Plus() {
+	// iOS-specific test
+	if (Titanium.Platform.name == 'iPhone OS') {
+		var version = Titanium.Platform.version.split(".");
+		var major = parseInt(version[0], 10);
+		// Can only test this support on a 3.2+ device
+		if (major >= 7) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
 function goToSudoku(sudoku) {
+	
 	var tableSudokuController = Alloy.createController("tableSudoku", {
 		table : sudoku
 	});
 	tableSudokuController.getView().open();
 	$.windowActivity.hide();
-	
+
 }
 
-function VerificationIntegritySudoku(sudoku)
-{
+function VerificationIntegritySudoku(sudoku) {
 	var integrity = true;
 	var i = 0;
-	var j =0;
-	while(integrity && i != sudoku.length)
-	{
+	var j = 0;
+	while (integrity && i != sudoku.length) {
 		Ti.API.debug("|");
-		while(integrity && j != sudoku[i].length)
-		{
-			
-			if(  typeof sudoku [i][j] == "undefined" || sudoku[i][j] == "" )
-			{
+		while (integrity && j != sudoku[i].length) {
+
+			if ( typeof sudoku [i][j] == "undefined" || sudoku[i][j] == "") {
 				integrity = false;
 				Ti.API.debug("_");
-			}
-			else
-			{
+			} else {
 				Ti.API.debug(sudoku[i][j]);
 			}
 			j++;
 		}
-		j=0;
+		j = 0;
 		i++;
 	}
 	return integrity;
 }
-
 
 function InitTable() {
 	var table = [];
@@ -49,26 +59,25 @@ function InitTable() {
 
 function setProb(sector, column, values) {
 	var tableTry = [];
-	
+
 	if (!Array.isArray(column))
 		column = [];
 
 	if (!Array.isArray(sector))
 		sector = [];
-	
+
 	for (var i = 0; i < values.length; i++) {
 
 		if (((column.indexOf(values[i]) == -1 && sector.indexOf(values[i]) == -1 ) )) {
-			//Ti.API.debug("values add = " + values[i]);	
+			//Ti.API.debug("values add = " + values[i]);
 			tableTry.push(values[i]);
 		}
 	}
-	if(tableTry.length == 0)
-	{
-		Ti.API.debug("table lot = 0");	
-		Ti.API.debug("values add = " + values);	
+	if (tableTry.length == 0) {
+		Ti.API.debug("table lot = 0");
+		Ti.API.debug("values add = " + values);
 	}
-	
+
 	return tableTry;
 }
 
@@ -155,7 +164,8 @@ function getValues(i, probTableSudoku, index) {
 		for (var y = 0; y < probTableSudoku.length; y++) {
 			for (var x = 0; x < probTableSudoku[y].length; x++) {
 				if (index != y)
-				table_number.push(probTableSudoku[y][x]);// Récupération de toutes les possibilités sur la même ligne
+					table_number.push(probTableSudoku[y][x]);
+				// Récupération de toutes les possibilités sur la même ligne
 			}
 		}
 		for (var x = 0; x < probTableSudoku.length; x++) {
@@ -203,10 +213,10 @@ function getValues(i, probTableSudoku, index) {
 
 function insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
 
-	if(probTableSudoku[i].length > 1)
+	if (probTableSudoku[i].length > 1)
 		tableSudoku[i][index] = setRandom(getValues(i, probTableSudoku[i], index));
 	else
-		tableSudoku[i][index] = setRandom( probTableSudoku[i]);
+		tableSudoku[i][index] = setRandom(probTableSudoku[i]);
 
 	if ( typeof tableColumn[index] === 'undefined' || !(tableColumn[index]) || !(Array.isArray(tableColumn[index]))) {
 		tableColumn[index] = [];
@@ -220,7 +230,7 @@ function insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tab
 	tableColumn[index].push(tableSudoku[i][index]);
 	tableSector[Math.floor(index / 3) + Math.floor(i / 3) * 3].push(tableSudoku[i][index]);
 	//table[i].splice(table[i].indexOf(tableSudoku[i][index]), 1);
-	table[i]=table[i].filter(function (element){
+	table[i] = table[i].filter(function(element) {
 		return element != tableSudoku[i][index];
 	});
 	AffichageInConsole(tableSudoku);
@@ -251,7 +261,7 @@ function sortTable(table) {
 				if ( typeof tableColumn[j] === 'undefined' || !(tableColumn[j]) || !(Array.isArray(tableColumn[i]))) {
 					tableColumn[j] = [];
 					Ti.API.debug("tabColumn = " + j);
-					
+
 				}
 
 				if (!(tableSector[Math.floor(j / 3) + Math.floor(i / 3) * 3] )) {
@@ -290,7 +300,6 @@ function sortTable(table) {
 			}
 		}
 	}
-
 	return tableSudoku;
 }
 
@@ -303,17 +312,29 @@ if ( typeof Ti.Platform.name !== 'undefined') {
 	$.activityIndicator.style = style;
 }
 
-$.activityIndicator.show();
-var sudoku;
-do{
-	sudoku = InitTable();	
-}
-while(VerificationIntegritySudoku(sudoku) == false);
+var iOS_seven = isIOS_Seven_Plus();
+var theTop = iOS_seven ? 20 : 0;
+var window = $.windowActivity;
+window.top = theTop;
 
 
-$.activityIndicator.hide();
-goToSudoku(sudoku);
+Ti.App.addEventListener('new_game', function(e) {
+	// logs 'bar'
+	$.windowActivity.show();
+	$.activityIndicator.show();
+	if (e.retour == 0) {
+		var sudoku;
+		do {
+			sudoku = InitTable();
+		} while(VerificationIntegritySudoku(sudoku) == false);
+	}
 
+	$.activityIndicator.hide();
+	goToSudoku(sudoku);
 
+});
 
+Ti.App.fireEvent('new_game', {
+	retour : 0
+});
 

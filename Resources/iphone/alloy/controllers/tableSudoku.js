@@ -15,8 +15,10 @@ function Controller() {
         return false;
     }
     function createNewGame() {
-        var c = Alloy.createController("newGame", {});
-        c.getView().open();
+        $.windowTable.close();
+        Ti.App.fireEvent("new_game", {
+            retour: 0
+        });
     }
     function timer(addTime) {
         var left_over = 0;

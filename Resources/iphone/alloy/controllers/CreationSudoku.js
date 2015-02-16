@@ -8,6 +8,12 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
+    function isIOS_Seven_Plus() {
+        var version = Titanium.Platform.version.split(".");
+        var major = parseInt(version[0], 10);
+        if (major >= 7) return true;
+        return false;
+    }
     function goToSudoku(sudoku) {
         var tableSudokuController = Alloy.createController("tableSudoku", {
             table: sudoku
@@ -202,11 +208,23 @@ function Controller() {
     _.extend($, $.__views);
     style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
     $.activityIndicator.style = style;
-    $.activityIndicator.show();
-    var sudoku;
-    do sudoku = InitTable(); while (false == VerificationIntegritySudoku(sudoku));
-    $.activityIndicator.hide();
-    goToSudoku(sudoku);
+    var iOS_seven = isIOS_Seven_Plus();
+    var theTop = iOS_seven ? 20 : 0;
+    var window = $.windowActivity;
+    window.top = theTop;
+    Ti.App.addEventListener("new_game", function(e) {
+        $.windowActivity.show();
+        $.activityIndicator.show();
+        if (0 == e.retour) {
+            var sudoku;
+            do sudoku = InitTable(); while (false == VerificationIntegritySudoku(sudoku));
+        }
+        $.activityIndicator.hide();
+        goToSudoku(sudoku);
+    });
+    Ti.App.fireEvent("new_game", {
+        retour: 0
+    });
     _.extend($, exports);
 }
 
