@@ -15,10 +15,24 @@ function Controller() {
         return false;
     }
     function createNewGame() {
-        $.windowTable.close();
-        Ti.App.fireEvent("new_game", {
-            retour: 0
+        var c = Alloy.createController("newGame", {});
+        c.getView().addEventListener("restart", function() {
+            $.windowTable.close();
+            $.windowTable.fireEvent("new_game", {
+                retour: 0
+            });
         });
+        c.getView().open();
+    }
+    function ExitGame() {
+        var c = Alloy.createController("QuitGame", {});
+        c.getView().addEventListener("exit", function() {
+            $.windowTable.close();
+            $.windowTable.fireEvent("quitGame", {
+                retour: 0
+            });
+        });
+        c.getView().open();
     }
     function timer(addTime) {
         var left_over = 0;
@@ -106,16 +120,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Hour);
-    $.__views.__alloyId3 = Ti.UI.createLabel({
+    $.__views.__alloyId7 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "4%",
         text: ":",
-        id: "__alloyId3"
+        id: "__alloyId7"
     });
-    $.__views.Time.add($.__views.__alloyId3);
+    $.__views.Time.add($.__views.__alloyId7);
     $.__views.Minute = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -126,16 +140,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Minute);
-    $.__views.__alloyId4 = Ti.UI.createLabel({
+    $.__views.__alloyId8 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "4%",
         text: ":",
-        id: "__alloyId4"
+        id: "__alloyId8"
     });
-    $.__views.Time.add($.__views.__alloyId4);
+    $.__views.Time.add($.__views.__alloyId8);
     $.__views.Second = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -159,21 +173,37 @@ function Controller() {
         bottom: "6%",
         width: Titanium.UI.SIZE,
         height: Titanium.UI.SIZE,
+        layout: "horizontal",
         id: "Options"
     });
     $.__views.parent_view.add($.__views.Options);
     $.__views.jeu = Ti.UI.createButton({
-        width: "80%",
-        height: Titanium.UI.SIZE,
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
         textAlign: "Center",
+        height: Titanium.UI.SIZE,
+        width: "80%",
+        left: "10%",
         id: "jeu",
         title: "Nouveau Jeu"
     });
     $.__views.Options.add($.__views.jeu);
     createNewGame ? $.__views.jeu.addEventListener("click", createNewGame) : __defers["$.__views.jeu!click!createNewGame"] = true;
+    $.__views.quitGame = Ti.UI.createButton({
+        backgroundColor: "#FFFFFF",
+        borderColor: "#FFFFFF",
+        borderRadius: 15,
+        textAlign: "Center",
+        height: Titanium.UI.SIZE,
+        width: "80%",
+        left: "10%",
+        top: 5,
+        id: "quitGame",
+        title: "Quitter le jeu"
+    });
+    $.__views.Options.add($.__views.quitGame);
+    ExitGame ? $.__views.quitGame.addEventListener("click", ExitGame) : __defers["$.__views.quitGame!click!ExitGame"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0];
@@ -262,40 +292,43 @@ function Controller() {
                             empty_cells--;
                         } else {
                             element.color = "#801A15";
-                            "" != e.source.value && timer(30);
-                            showMessageTimeout = function(customMessage, interval) {
-                                indWin = Titanium.UI.createWindow();
-                                var indView = Titanium.UI.createView({
-                                    height: 50,
-                                    width: 250,
-                                    borderRadius: 10,
-                                    backgroundColor: "#aaa",
-                                    opacity: .7
-                                });
-                                indWin.add(indView);
-                                var message = Titanium.UI.createLabel({
-                                    text: customMessage && typeof ("undefined" !== customMessage) ? customMessage : L("please_wait"),
-                                    color: "#fff",
-                                    width: "auto",
-                                    height: "auto",
-                                    textAlign: "center",
-                                    font: {
-                                        fontFamily: "Helvetica Neue",
-                                        fontSize: 12,
-                                        fontWeight: "bold"
-                                    }
-                                });
-                                indView.add(message);
-                                indWin.open();
-                                interval = interval ? interval : 3e3;
-                                setTimeout(function() {
-                                    indWin.close({
-                                        opacity: 0,
-                                        duration: 1e3
+                            Ti.API.error("e.value : '" + e.source.value + "'");
+                            if (e.source.value.length > 0) {
+                                timer(30);
+                                showMessageTimeout = function(customMessage, interval) {
+                                    indWin = Titanium.UI.createWindow();
+                                    var indView = Titanium.UI.createView({
+                                        height: 50,
+                                        width: 250,
+                                        borderRadius: 10,
+                                        backgroundColor: "#aaa",
+                                        opacity: .7
                                     });
-                                }, interval);
-                            };
-                            showMessageTimeout("Pénalité de 30 sec", 200);
+                                    indWin.add(indView);
+                                    var message = Titanium.UI.createLabel({
+                                        text: customMessage && typeof ("undefined" !== customMessage) ? customMessage : L("please_wait"),
+                                        color: "#fff",
+                                        width: "auto",
+                                        height: "auto",
+                                        textAlign: "center",
+                                        font: {
+                                            fontFamily: "Helvetica Neue",
+                                            fontSize: 12,
+                                            fontWeight: "bold"
+                                        }
+                                    });
+                                    indView.add(message);
+                                    indWin.open();
+                                    interval = interval ? interval : 3e3;
+                                    setTimeout(function() {
+                                        indWin.close({
+                                            opacity: 0,
+                                            duration: 1e3
+                                        });
+                                    }, interval);
+                                };
+                                showMessageTimeout("Pénalité de 30 sec", 200);
+                            }
                         }
                         Ti.API.info("empty_cells= " + empty_cells);
                         if (0 == empty_cells) {
@@ -351,6 +384,7 @@ function Controller() {
     var window = $.windowTable;
     window.top = theTop;
     __defers["$.__views.jeu!click!createNewGame"] && $.__views.jeu.addEventListener("click", createNewGame);
+    __defers["$.__views.quitGame!click!ExitGame"] && $.__views.quitGame.addEventListener("click", ExitGame);
     _.extend($, exports);
 }
 

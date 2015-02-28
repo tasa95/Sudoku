@@ -11,7 +11,8 @@
 			</View>
 			<View id="Sudoku" class="component"></View>
 			<View id ="Options" class ="info component">
-				<Button id="jeu" textAlign="Center" title = "Nouveau Jeu" onClick ="createNewGame"></Button>
+				<Button class="Button" id="jeu" textAlign="Center" title = "Nouveau Jeu" onClick ="createNewGame"></Button>
+				<Button class="Button" id="quitGame" textAlign="Center" title = "Quitter le jeu" onClick ="ExitGame"></Button>
 			</View>
 		</View>
 	</Window>

@@ -21,7 +21,7 @@ var tab1 = Titanium.UI.createTab({
 var label1 = Titanium.UI.createLabel({
 	color:'#999',
 	text:'I am Window 1',
-	font:{fontSize:20,fontFamily:'Helvetica Neue'},
+	font:{fontSize:20,fontFamily:'Channel Left-Slanted'},
 	textAlign:'center',
 	width:'auto'
 });
@@ -44,7 +44,7 @@ var tab2 = Titanium.UI.createTab({
 var label2 = Titanium.UI.createLabel({
 	color:'#999',
 	text:'I am Window 2',
-	font:{fontSize:20,fontFamily:'Helvetica Neue'},
+	font:{fontSize:20,fontFamily:'Channel Left-Slanted'},
 	textAlign:'center',
 	width:'auto'
 });

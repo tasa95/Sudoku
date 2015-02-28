@@ -13,10 +13,26 @@ function isIOS_Seven_Plus() {
 }
 
 function createNewGame() {
-	$.windowTable.close();
-	Ti.App.fireEvent('new_game', {
+	var c = Alloy.createController("newGame",{});
+	c.getView().addEventListener("restart",function(e){
+		$.windowTable.close();
+		$.windowTable.fireEvent('new_game', {
 		retour : 0
+		});
 	});
+	c.getView().open() ;
+
+}
+
+function ExitGame() {
+	var c = Alloy.createController("QuitGame",{});
+	c.getView().addEventListener("exit",function(e){
+		$.windowTable.close();
+		$.windowTable.fireEvent('quitGame', {
+		retour : 0
+		});
+	});
+	c.getView().open() ; 
 }
 
 function timer(addTime) {
@@ -206,9 +222,12 @@ for (var i = 0; i < number_line; i++) {
 						empty_cells--;
 					} else {
 						element.color = "#801A15";
-						if (e.source.value != "")
+						Ti.API.error("e.value : '"+e.source.value+"'");
+						if (e.source.value.length > 0 )
+						{
 							timer(30);
-						showMessageTimeout = function(customMessage, interval) {
+						
+							showMessageTimeout = function(customMessage, interval) {
 							// window container
 							indWin = Titanium.UI.createWindow();
 
@@ -250,6 +269,7 @@ for (var i = 0; i < number_line; i++) {
 						};
 
 						showMessageTimeout("Pénalité de 30 sec", 200);
+					}
 					}
 
 					Ti.API.info("empty_cells= " + empty_cells);
@@ -324,3 +344,29 @@ var iOS_seven = isIOS_Seven_Plus();
 var theTop = iOS_seven ? 20 : 0;
 var window = $.windowTable;
 window.top = theTop;
+
+
+
+
+//********************************************LISTENER*******************************************/
+/*
+Ti.App.addEventListener('restart', function(e) {
+	// logs 'bar'
+	
+	Ti.App.removeEventListener('restart',function(e){		
+	});
+	
+});
+
+
+Ti.App.addEventListener('exit', function(e) {
+	// logs 'bar'
+	$.windowTable.close();
+	Ti.App.fireEvent('quitGame', {
+		retour : 0
+	});	
+	Ti.App.removeEventListener('exit',function(e){
+	});	
+});
+*/
+

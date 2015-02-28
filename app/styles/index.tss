@@ -1,15 +1,68 @@
 ".container": {
-	backgroundColor:"white"
+	backgroundColor: "#166181"
 }
 
-"Label": {
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	color: "#000"
+
+
+"#CenterLabel" : {
+	
+	layout : "horizontal",
 }
 
-"#label": {
+
+".Channel" :
+{
 	font: {
-		fontSize: 12
-	}
+     fontSize:45,
+     fontFamily: 'Channel Left-Slanted'
+ },
+  color : '#FFF'
+  
+}
+
+".Channel[platform=android]":
+{
+font: {
+      fontFamily: 'Channel Left-Slanted'
+  }
+}
+
+".Channel[platform=ios]":{
+font: {
+      fontFamily: 'Channel Left-Slanted'
+  }
+}
+
+
+
+".Button":{
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15,
+	textAlign: "Center",
+	height: Titanium.UI.SIZE,
+	width: "80%" ,
+	left: "10%",
+	color: "#777",
+	top : 20 ,
+	color : "#166181"
+	
+}
+
+
+"#CentralView":{
+	
+	width : "100%"	,
+	layout : "vertical"
+}
+
+"#ButtonView":
+{
+
+}
+
+"#imageSudoku" : {
+	
+	top : "15%"
+	
 }

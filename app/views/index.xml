@@ -1,5 +1,12 @@
 <Alloy>
 	<Window class="container">
+		<View id="CentralView">
+				<View id="CenterLabel">
+					<ImageView id="imageSudoku" image="Sudoku.png" />
 
+					<Button class="Button" title="Jouer" onClick="goToCreationOfSudoku"></Button>
+				</View>
+
+			</View>
 	</Window>
 </Alloy>

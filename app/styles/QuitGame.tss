@@ -1,0 +1,60 @@
+
+".container" : {
+  	backgroundColor : '#FFF',
+	opacity : 0.9
+}
+
+
+".centerOptions" :
+{
+	layout : "vertical",
+	backgroundColor : '#FFF',
+	opacity: 1,
+	width : 250,
+	height : 400
+}
+
+
+"#generateNewGame" :
+{
+	height : 100,
+	width : 250,
+	textAlign : 'center',
+	opacity: 1
+}
+
+
+".buttonOptions" :
+{
+	layout : "horizontal",
+	height : 200,
+	opacity: 1 ,
+	width  : "100%"
+}
+
+
+".button" :
+{
+	height : 100,
+	width : "30%",
+	top : 50,
+	borderRadius : 10 ,
+	opacity: 1
+}
+
+"#buttonNo" :
+{
+	backgroundColor : "#ED0D27"	,
+	left : "5%"
+}
+
+"#buttonOui" :
+{
+	backgroundColor : "#07E937",
+	left : "30%"
+}
+
+"#QuitGame":
+{
+	
+}

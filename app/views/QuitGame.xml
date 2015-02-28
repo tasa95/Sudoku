@@ -1,0 +1,13 @@
+<Alloy>
+	<Window id="QuitGame">
+	<View class="container">
+		<View class="centerOptions">
+			<Label id ="generateNewGame" text="Voulez vous quittez le jeu" ></Label>
+			<View class="buttonOptions">
+				<Button class="button" id="buttonNo" title="Non" onClick="closeWindow"></Button>
+				<Button class="button" id="buttonOui" title="Oui" onClick="quitGame"></Button>
+			</View>	
+		</View>
+	</View>
+	</Window>
+</Alloy>

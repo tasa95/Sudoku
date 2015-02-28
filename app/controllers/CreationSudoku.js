@@ -20,6 +20,17 @@ function goToSudoku(sudoku) {
 		table : sudoku
 	});
 	tableSudokuController.getView().open();
+	
+	tableSudokuController.getView().addEventListener("new_game", function(e){
+		$.windowActivity.fireEvent('new_game',{
+			retour : 0
+		});
+	});
+	
+	tableSudokuController.getView().addEventListener("quitGame", function(e){
+		$.windowActivity.close();
+		
+	});
 	$.windowActivity.hide();
 
 }
@@ -318,10 +329,11 @@ var window = $.windowActivity;
 window.top = theTop;
 
 
-Ti.App.addEventListener('new_game', function(e) {
+$.windowActivity.addEventListener('new_game', function(e) {
 	// logs 'bar'
 	$.windowActivity.show();
 	$.activityIndicator.show();
+
 	if (e.retour == 0) {
 		var sudoku;
 		do {
@@ -331,10 +343,19 @@ Ti.App.addEventListener('new_game', function(e) {
 
 	$.activityIndicator.hide();
 	goToSudoku(sudoku);
+});
+
+$.windowActivity.addEventListener('quitGame', function(e) {
+	// logs 'bar'
+		Ti.App.removeEventListener('quitGame',function(e){});
+	Ti.App.removeEventListener('new_game', function(e){});	
+
+	$.windowActivity.close();
 
 });
 
-Ti.App.fireEvent('new_game', {
+
+$.windowActivity.fireEvent('new_game', {
 	retour : 0
 });
 

@@ -48,6 +48,20 @@
 }
 
 "#jeu":{
+	
+}
+
+
+".Button":{
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15,
+	textAlign: "Center",
+	height: Titanium.UI.SIZE,
+	width: "80%" ,
+	left: "10%"
+}
+"#quitGame":{
 
 	width: "80%" ,
 	height: Titanium.UI.SIZE,
@@ -58,10 +72,12 @@
 	textAlign: "Center"
 }
 
+
 "#Options":{
 	//top: "1%",
 	width: Titanium.UI.SIZE,
-	height: Titanium.UI.SIZE
+	height: Titanium.UI.SIZE,
+	layout:"horizontal"
 }
 
 "#Sudoku":{
@@ -80,4 +96,7 @@
 
 "#parent_view":{}
 
+"#quitGame":{
+	top : 5
+}
 

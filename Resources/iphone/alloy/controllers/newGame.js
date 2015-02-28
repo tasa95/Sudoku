@@ -12,8 +12,10 @@ function Controller() {
         $.NewGameWindow.close();
     }
     function newGame() {
-        var c = Alloy.createController("CreationSudoku", {});
-        c.getView().open();
+        $.NewGameWindow.close();
+        $.NewGameWindow.fireEvent("restart", {
+            retour: 0
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "newGame";
@@ -35,21 +37,21 @@ function Controller() {
         id: "NewGameWindow"
     });
     $.__views.NewGameWindow && $.addTopLevelView($.__views.NewGameWindow);
-    $.__views.__alloyId0 = Ti.UI.createView({
+    $.__views.__alloyId4 = Ti.UI.createView({
         backgroundColor: "#FFF",
         opacity: .9,
-        id: "__alloyId0"
+        id: "__alloyId4"
     });
-    $.__views.NewGameWindow.add($.__views.__alloyId0);
-    $.__views.__alloyId1 = Ti.UI.createView({
+    $.__views.NewGameWindow.add($.__views.__alloyId4);
+    $.__views.__alloyId5 = Ti.UI.createView({
         layout: "vertical",
         backgroundColor: "#FFF",
         opacity: 1,
         width: 250,
         height: 400,
-        id: "__alloyId1"
+        id: "__alloyId5"
     });
-    $.__views.__alloyId0.add($.__views.__alloyId1);
+    $.__views.__alloyId4.add($.__views.__alloyId5);
     $.__views.generateNewGame = Ti.UI.createLabel({
         height: 100,
         width: 250,
@@ -58,15 +60,15 @@ function Controller() {
         id: "generateNewGame",
         text: "Voulez vous générer un nouveau sudoku "
     });
-    $.__views.__alloyId1.add($.__views.generateNewGame);
-    $.__views.__alloyId2 = Ti.UI.createView({
+    $.__views.__alloyId5.add($.__views.generateNewGame);
+    $.__views.__alloyId6 = Ti.UI.createView({
         layout: "horizontal",
         height: 200,
         opacity: 1,
         width: "100%",
-        id: "__alloyId2"
+        id: "__alloyId6"
     });
-    $.__views.__alloyId1.add($.__views.__alloyId2);
+    $.__views.__alloyId5.add($.__views.__alloyId6);
     $.__views.buttonNo = Ti.UI.createButton({
         height: 100,
         width: "30%",
@@ -78,7 +80,7 @@ function Controller() {
         id: "buttonNo",
         title: "Non"
     });
-    $.__views.__alloyId2.add($.__views.buttonNo);
+    $.__views.__alloyId6.add($.__views.buttonNo);
     closeWindow ? $.__views.buttonNo.addEventListener("click", closeWindow) : __defers["$.__views.buttonNo!click!closeWindow"] = true;
     $.__views.buttonOui = Ti.UI.createButton({
         height: 100,
@@ -91,7 +93,7 @@ function Controller() {
         id: "buttonOui",
         title: "Oui"
     });
-    $.__views.__alloyId2.add($.__views.buttonOui);
+    $.__views.__alloyId6.add($.__views.buttonOui);
     newGame ? $.__views.buttonOui.addEventListener("click", newGame) : __defers["$.__views.buttonOui!click!newGame"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);

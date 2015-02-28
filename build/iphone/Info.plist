@@ -37,6 +37,12 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppMainFont</key>
+	<array>
+		<string>Channel.ttf</string>
+		<string>Floralis.ttf</string>
+		<string>Channel_Left-Slanted.ttf</string>
+	</array>
 	<key>UIRequiresPersistentWiFi</key>
 	<false/>
 	<key>UIPrerenderedIcon</key>
@@ -144,6 +150,15 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>/Channel.ttf</string>
+		<string>/fonts/Channel.ttf</string>
+		<string>/Channel_Left-Slanted.ttf</string>
+		<string>/Floralis.ttf</string>
+		<string>/fonts/Channel_Left-Slanted.ttf</string>
+		<string>/fonts/Floralis.ttf</string>
 	</array>
 </dict>
 </plist>
