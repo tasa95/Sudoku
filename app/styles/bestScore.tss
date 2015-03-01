@@ -1,12 +1,13 @@
 "#buttonBack" : {
   	width: "90%" ,
-	height: "10%",
+	height: Titanium.UI.SIZE,
 	backgroundColor: "#FFFFFF",
 	borderColor: "#FFFFFF",
 	borderRadius: 15,
 	textAlign: "Center",
 	bottom: "5%",
-	font: {fontSize: 18}
+	font: {fontSize: 18},
+	color : "#166181"
 }
 
 

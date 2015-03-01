@@ -1,4 +1,19 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<Window id="aboutWindow"  >
+		<View layout="vertical">
+			<Label id="aboutLabel" text="À propos"></Label>
+			<Label id="textAbout" text="Cette application a été réalisé dans le cadre d'un projet scolaire, elle a été développé par:\nThierry ALLARD SAINT ALBIN et Thomas OUK."></Label>
+			
+			<Button id="buttonBackAbout" onClick="closeWindow">Retour</Button>			
+			
+				<View  layout="horizontal">
+					<View id="bottomLabel" layout="vertical">
+						<Label id="copyrightAbout">© 2014-2015 4IAM</Label>
+						<Label id="versionLabel">Version: 1.0</Label>
+					</View>	
+					<ImageView id="logoImage" image="esgi.png"></ImageView>
+				</View>	
+			</View>			
+		
+	</Window>
 </Alloy>

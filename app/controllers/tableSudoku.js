@@ -109,7 +109,7 @@ var first_color = '#FFFFFF';
 
 function stopGame(refreshIntervalId) {
 	clearInterval(refreshIntervalId);
-	saveScore()
+	saveScore();
 	createNewGame();
 }
 

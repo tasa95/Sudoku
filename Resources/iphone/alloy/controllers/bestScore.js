@@ -32,11 +32,11 @@ function Controller() {
         backgroundColor: "#166181"
     });
     $.__views.scoreWindow && $.addTopLevelView($.__views.scoreWindow);
-    $.__views.__alloyId3 = Ti.UI.createView({
+    $.__views.__alloyId5 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId3"
+        id: "__alloyId5"
     });
-    $.__views.scoreWindow.add($.__views.__alloyId3);
+    $.__views.scoreWindow.add($.__views.__alloyId5);
     $.__views.labelBestScore = Ti.UI.createLabel({
         top: "15%",
         color: "white",
@@ -46,7 +46,7 @@ function Controller() {
         text: "Mon meilleur score",
         id: "labelBestScore"
     });
-    $.__views.__alloyId3.add($.__views.labelBestScore);
+    $.__views.__alloyId5.add($.__views.labelBestScore);
     $.__views.valueBestScore = Ti.UI.createLabel({
         top: "15%",
         color: "white",
@@ -55,14 +55,14 @@ function Controller() {
         },
         id: "valueBestScore"
     });
-    $.__views.__alloyId3.add($.__views.valueBestScore);
+    $.__views.__alloyId5.add($.__views.valueBestScore);
     $.__views.Sudoku = Ti.UI.createView({
         id: "Sudoku"
     });
     $.__views.scoreWindow.add($.__views.Sudoku);
     $.__views.buttonBack = Ti.UI.createButton({
         width: "90%",
-        height: "10%",
+        height: Titanium.UI.SIZE,
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
@@ -71,6 +71,7 @@ function Controller() {
         font: {
             fontSize: 18
         },
+        color: "#166181",
         title: "Retour",
         id: "buttonBack"
     });

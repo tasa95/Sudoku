@@ -8,42 +8,42 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
-    function __alloyId23(e) {
+    function __alloyId25(e) {
         if (e && e.fromAdapter) return;
-        __alloyId23.opts || {};
-        var models = __alloyId22.models;
+        __alloyId25.opts || {};
+        var models = __alloyId24.models;
         var len = models.length;
         var rows = [];
         for (var i = 0; len > i; i++) {
-            var __alloyId13 = models[i];
-            __alloyId13.__transform = {};
-            var __alloyId14 = Ti.UI.createTableViewRow({
+            var __alloyId15 = models[i];
+            __alloyId15.__transform = {};
+            var __alloyId16 = Ti.UI.createTableViewRow({
                 hasCheck: false,
                 width: Ti.UI.FILL,
                 height: "40dp",
                 backgroundColor: "#166181",
-                rowId: "undefined" != typeof __alloyId13.__transform["id"] ? __alloyId13.__transform["id"] : __alloyId13.get("id")
+                rowId: "undefined" != typeof __alloyId15.__transform["id"] ? __alloyId15.__transform["id"] : __alloyId15.get("id")
             });
-            rows.push(__alloyId14);
-            var __alloyId15 = Ti.UI.createView({
-                width: "40%",
+            rows.push(__alloyId16);
+            var __alloyId17 = Ti.UI.createView({
+                width: "60%",
                 height: Ti.UI.FILL,
                 left: "10%",
                 layout: "horizontal"
             });
-            __alloyId14.add(__alloyId15);
-            var __alloyId16 = Ti.UI.createLabel({
-                width: "15%",
+            __alloyId16.add(__alloyId17);
+            var __alloyId18 = Ti.UI.createLabel({
+                width: Ti.UI.SIZE,
                 top: "33%",
                 textAlign: "right",
                 color: "white",
                 font: {
                     fontSize: 20
                 },
-                text: "undefined" != typeof __alloyId13.__transform["hour"] ? __alloyId13.__transform["hour"] : __alloyId13.get("hour")
+                text: "undefined" != typeof __alloyId15.__transform["hour"] ? __alloyId15.__transform["hour"] : __alloyId15.get("hour")
             });
-            __alloyId15.add(__alloyId16);
-            var __alloyId17 = Ti.UI.createLabel({
+            __alloyId17.add(__alloyId18);
+            var __alloyId19 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 color: "white",
@@ -52,19 +52,19 @@ function Controller() {
                 },
                 text: "h"
             });
-            __alloyId15.add(__alloyId17);
-            var __alloyId18 = Ti.UI.createLabel({
-                width: "15%",
+            __alloyId17.add(__alloyId19);
+            var __alloyId20 = Ti.UI.createLabel({
+                width: Ti.UI.SIZE,
                 top: "33%",
                 textAlign: "right",
                 color: "white",
                 font: {
                     fontSize: 20
                 },
-                text: "undefined" != typeof __alloyId13.__transform["minute"] ? __alloyId13.__transform["minute"] : __alloyId13.get("minute")
+                text: "undefined" != typeof __alloyId15.__transform["minute"] ? __alloyId15.__transform["minute"] : __alloyId15.get("minute")
             });
-            __alloyId15.add(__alloyId18);
-            var __alloyId19 = Ti.UI.createLabel({
+            __alloyId17.add(__alloyId20);
+            var __alloyId21 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 color: "white",
@@ -73,19 +73,19 @@ function Controller() {
                 },
                 text: "m"
             });
-            __alloyId15.add(__alloyId19);
-            var __alloyId20 = Ti.UI.createLabel({
-                width: "15%",
+            __alloyId17.add(__alloyId21);
+            var __alloyId22 = Ti.UI.createLabel({
+                width: Ti.UI.SIZE,
                 top: "33%",
                 textAlign: "right",
                 color: "white",
                 font: {
                     fontSize: 20
                 },
-                text: "undefined" != typeof __alloyId13.__transform["second"] ? __alloyId13.__transform["second"] : __alloyId13.get("second")
+                text: "undefined" != typeof __alloyId15.__transform["second"] ? __alloyId15.__transform["second"] : __alloyId15.get("second")
             });
-            __alloyId15.add(__alloyId20);
-            var __alloyId21 = Ti.UI.createLabel({
+            __alloyId17.add(__alloyId22);
+            var __alloyId23 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 color: "white",
@@ -94,7 +94,7 @@ function Controller() {
                 },
                 text: "s"
             });
-            __alloyId15.add(__alloyId21);
+            __alloyId17.add(__alloyId23);
         }
         $.__views.scoreTableView.setData(rows);
     }
@@ -155,8 +155,8 @@ function Controller() {
         id: "scoreTableView"
     });
     $.__views.viewScores.add($.__views.scoreTableView);
-    var __alloyId22 = Alloy.Collections["score"] || score;
-    __alloyId22.on("fetch destroy change add remove reset", __alloyId23);
+    var __alloyId24 = Alloy.Collections["score"] || score;
+    __alloyId24.on("fetch destroy change add remove reset", __alloyId25);
     $.__views.closeWindowButton = Ti.UI.createButton({
         width: "80%",
         height: Titanium.UI.SIZE,
@@ -177,7 +177,7 @@ function Controller() {
     });
     $.__views.navGroup && $.addTopLevelView($.__views.navGroup);
     exports.destroy = function() {
-        __alloyId22.off("fetch destroy change add remove reset", __alloyId23);
+        __alloyId24.off("fetch destroy change add remove reset", __alloyId25);
     };
     _.extend($, $.__views);
     $.scoreTableView.addEventListener("click", function(e) {

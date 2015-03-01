@@ -37,21 +37,21 @@ function Controller() {
         id: "NewGameWindow"
     });
     $.__views.NewGameWindow && $.addTopLevelView($.__views.NewGameWindow);
-    $.__views.__alloyId8 = Ti.UI.createView({
+    $.__views.__alloyId10 = Ti.UI.createView({
         backgroundColor: "#FFF",
         opacity: .9,
-        id: "__alloyId8"
+        id: "__alloyId10"
     });
-    $.__views.NewGameWindow.add($.__views.__alloyId8);
-    $.__views.__alloyId9 = Ti.UI.createView({
+    $.__views.NewGameWindow.add($.__views.__alloyId10);
+    $.__views.__alloyId11 = Ti.UI.createView({
         layout: "vertical",
         backgroundColor: "#FFF",
         opacity: 1,
         width: 250,
         height: 400,
-        id: "__alloyId9"
+        id: "__alloyId11"
     });
-    $.__views.__alloyId8.add($.__views.__alloyId9);
+    $.__views.__alloyId10.add($.__views.__alloyId11);
     $.__views.generateNewGame = Ti.UI.createLabel({
         height: 100,
         width: 250,
@@ -60,15 +60,15 @@ function Controller() {
         id: "generateNewGame",
         text: "Voulez vous générer un nouveau sudoku "
     });
-    $.__views.__alloyId9.add($.__views.generateNewGame);
-    $.__views.__alloyId10 = Ti.UI.createView({
+    $.__views.__alloyId11.add($.__views.generateNewGame);
+    $.__views.__alloyId12 = Ti.UI.createView({
         layout: "horizontal",
         height: 200,
         opacity: 1,
         width: "100%",
-        id: "__alloyId10"
+        id: "__alloyId12"
     });
-    $.__views.__alloyId9.add($.__views.__alloyId10);
+    $.__views.__alloyId11.add($.__views.__alloyId12);
     $.__views.buttonNo = Ti.UI.createButton({
         height: 100,
         width: "30%",
@@ -80,7 +80,7 @@ function Controller() {
         id: "buttonNo",
         title: "Non"
     });
-    $.__views.__alloyId10.add($.__views.buttonNo);
+    $.__views.__alloyId12.add($.__views.buttonNo);
     closeWindow ? $.__views.buttonNo.addEventListener("click", closeWindow) : __defers["$.__views.buttonNo!click!closeWindow"] = true;
     $.__views.buttonOui = Ti.UI.createButton({
         height: 100,
@@ -93,7 +93,7 @@ function Controller() {
         id: "buttonOui",
         title: "Oui"
     });
-    $.__views.__alloyId10.add($.__views.buttonOui);
+    $.__views.__alloyId12.add($.__views.buttonOui);
     newGame ? $.__views.buttonOui.addEventListener("click", newGame) : __defers["$.__views.buttonOui!click!newGame"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);

@@ -1,4 +1,57 @@
+"#aboutWindow":{
+	backgroundColor: "#166181"
+}
 
-".container" : {
-  
+"#aboutLabel":{
+	top:"15%",
+	color:'white',
+	font: {fontSize: 30}
+}
+
+"#textAbout":{
+	width:'80%',
+	height: Titanium.UI.SIZE,
+	color: 'white',
+	backgroundColor: "#166181",
+	font: {fontSize: 12},
+	top:'1%'
+}
+
+"#logoImage":{
+	width : '30%',
+	height : '50%',
+}
+"#buttonBackAbout":{
+	width: "80%" ,
+	height: "5%",
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15,
+	textAlign: "Center",
+	top:'30%',
+	font: {fontSize: 18},
+	color: "#166181",
+}
+
+"#copyrightAbout":{
+	width : Titanium.UI.SIZE,
+	color : 'white',
+	font: {fontSize: 12},
+	
+}
+
+
+"#versionLabel":{
+	width : Titanium.UI.SIZE,
+	color : 'white',
+	font: {fontSize: 12},
+	
+	
+}
+
+"#bottomLabel" :{
+	top: '5%',
+	width : '50%',
+	height: Titanium.UI.SIZE,
+
 }

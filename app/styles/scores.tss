@@ -14,13 +14,13 @@
 }
 
 "#componentView":{
-	width:"40%",
+	width:'60%',
 	height:Ti.UI.FILL,
 	left:'10%'
 }
 
 "#labelValue":{
-	width:"15%",
+	width:Ti.UI.SIZE,
 	top:'33%',
 	textAlign: 'right',
 	color:"white",
