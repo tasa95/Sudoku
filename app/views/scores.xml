@@ -1,0 +1,24 @@
+<Alloy>
+
+	<Collection src="score" />
+	<NavigationWindow id="navGroup" platform="ios">
+	<Window id="scoreWindow" class="container" backgroundColor = "#166181">
+		<View id="viewScores" layout="vertical">
+			<Label id="labelBestScore">Historique Score</Label>
+			<TableView id="scoreTableView" dataCollection="score">
+				<TableViewRow id="listRow" rowId="{id}">
+					<View id="componentView" layout="horizontal">	
+	    				<Label id="labelValue" text="{hour}"></Label>
+	    				<Label id="letterValue" text="h"></Label>
+	    				<Label id="labelValue" text="{minute}"></Label>
+	    				<Label id="letterValue" text="m"></Label>
+	    				<Label id="labelValue" text="{second}"></Label>
+	    				<Label id="letterValue" text="s"></Label>
+					</View>	
+				</TableViewRow>
+			</TableView>
+			<Button id="closeWindowButton" onClick="closeWindow">Retour</Button>
+		</View>
+	</Window>
+	</NavigationWindow>
+</Alloy>

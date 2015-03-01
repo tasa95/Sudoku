@@ -12,7 +12,10 @@ function Controller() {
         var bestScores = Alloy.createController("bestScore").getView();
         $.navGroup.openWindow(bestScores);
     }
-    function goToScores() {}
+    function goToScores() {
+        var scores = Alloy.createController("scores").getView();
+        $.navGroup.openWindow(scores);
+    }
     function backHome() {
         $.navGroup.close();
     }
@@ -36,11 +39,11 @@ function Controller() {
         id: "windowStats",
         backgroundColor: "#166181"
     });
-    $.__views.__alloyId10 = Ti.UI.createView({
+    $.__views.__alloyId23 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId10"
+        id: "__alloyId23"
     });
-    $.__views.windowStats.add($.__views.__alloyId10);
+    $.__views.windowStats.add($.__views.__alloyId23);
     $.__views.labelStat = Ti.UI.createLabel({
         color: "white",
         font: {
@@ -50,7 +53,7 @@ function Controller() {
         text: "Mes statistiques",
         id: "labelStat"
     });
-    $.__views.__alloyId10.add($.__views.labelStat);
+    $.__views.__alloyId23.add($.__views.labelStat);
     $.__views.buttonScore = Ti.UI.createButton({
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
@@ -64,7 +67,7 @@ function Controller() {
         title: "Mon meilleur score",
         id: "buttonScore"
     });
-    $.__views.__alloyId10.add($.__views.buttonScore);
+    $.__views.__alloyId23.add($.__views.buttonScore);
     goToBestScore ? $.__views.buttonScore.addEventListener("click", goToBestScore) : __defers["$.__views.buttonScore!click!goToBestScore"] = true;
     $.__views.buttonScore = Ti.UI.createButton({
         backgroundColor: "#FFFFFF",
@@ -79,7 +82,7 @@ function Controller() {
         title: "Mes scores",
         id: "buttonScore"
     });
-    $.__views.__alloyId10.add($.__views.buttonScore);
+    $.__views.__alloyId23.add($.__views.buttonScore);
     goToScores ? $.__views.buttonScore.addEventListener("click", goToScores) : __defers["$.__views.buttonScore!click!goToScores"] = true;
     $.__views.buttonScore = Ti.UI.createButton({
         backgroundColor: "#FFFFFF",
@@ -94,7 +97,7 @@ function Controller() {
         title: "Retour",
         id: "buttonScore"
     });
-    $.__views.__alloyId10.add($.__views.buttonScore);
+    $.__views.__alloyId23.add($.__views.buttonScore);
     backHome ? $.__views.buttonScore.addEventListener("click", backHome) : __defers["$.__views.buttonScore!click!backHome"] = true;
     $.__views.navGroup = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.windowStats,

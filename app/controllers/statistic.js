@@ -4,7 +4,8 @@ function goToBestScore(){
 }
 
 function goToScores(){
-
+	var scores = Alloy.createController('scores').getView();
+    $.navGroup.openWindow(scores);
 }
 
 function backHome(){

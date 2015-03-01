@@ -132,16 +132,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Hour);
-    $.__views.__alloyId11 = Ti.UI.createLabel({
+    $.__views.__alloyId24 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "4%",
         text: ":",
-        id: "__alloyId11"
+        id: "__alloyId24"
     });
-    $.__views.Time.add($.__views.__alloyId11);
+    $.__views.Time.add($.__views.__alloyId24);
     $.__views.Minute = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -152,16 +152,16 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Minute);
-    $.__views.__alloyId12 = Ti.UI.createLabel({
+    $.__views.__alloyId25 = Ti.UI.createLabel({
         color: "#166181",
         font: {
             fontSize: 24
         },
         left: "4%",
         text: ":",
-        id: "__alloyId12"
+        id: "__alloyId25"
     });
-    $.__views.Time.add($.__views.__alloyId12);
+    $.__views.Time.add($.__views.__alloyId25);
     $.__views.Second = Ti.UI.createLabel({
         color: "#166181",
         font: {

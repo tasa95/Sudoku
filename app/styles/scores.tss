@@ -1,0 +1,63 @@
+"#scoreTableView":{
+	widht:Ti.UI.FILL,
+	height:'60%',
+	top:'5%',
+	backgroundColor: "#166181"
+}
+
+"#listRow":{
+	hasCheck:true,
+	width:Ti.UI.FILL,
+	height:"40dp",
+	hasCheck: false,
+	backgroundColor: "#166181"
+}
+
+"#componentView":{
+	width:"40%",
+	height:Ti.UI.FILL,
+	left:'10%'
+}
+
+"#labelValue":{
+	width:"15%",
+	top:'33%',
+	textAlign: 'right',
+	color:"white",
+	font: {fontSize: 20}
+}
+
+"#letterValue":{
+	width:"15%",
+	top:'33%',
+	color:"white",
+	font: {fontSize: 20}
+
+}
+
+"#labelBestScore":{
+	top:"15%",
+	color:'white',
+	font: {fontSize: 30}
+}
+
+"#closeWindowButton" : {
+	width: "80%" ,
+	height: Titanium.UI.SIZE,
+	//left: "30%",
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15,
+	textAlign: "Center",
+	top :'5%',
+	color : "#166181"
+}
+
+"#scoreWindow" : {
+  	backgroundColor: "#166181"
+  	
+}
+
+"#viewScores":{
+	
+}
