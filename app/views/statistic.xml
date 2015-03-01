@@ -1,0 +1,12 @@
+<Alloy>
+	<NavigationWindow id="navGroup" platform="ios">
+		<Window id="windowStats" backgroundColor="#166181">
+			<View class="container" layout="vertical">
+				<Label id="labelStat">Mes statistiques</Label>
+				<Button id="buttonScore" onClick="goToBestScore">Mon meilleur score</Button>
+				<Button id="buttonScore" onClick="goToScores">Mes scores</Button>
+				<Button id="buttonScore" onClick="backHome">Retour</Button>
+			</View>
+		</Window>
+	</NavigationWindow>
+</Alloy>

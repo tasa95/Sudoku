@@ -66,3 +66,24 @@ font: {
 	top : "15%"
 	
 }
+
+"#about":{
+
+	width: "90%" ,
+	height: "10%",
+	//left: "30%",
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15,
+	textAlign: "Center",
+	top: "5%",
+	font: {fontSize: 18}
+}
+
+"#navGroup": {
+	
+}
+
+"#mainWindow":{
+	
+}

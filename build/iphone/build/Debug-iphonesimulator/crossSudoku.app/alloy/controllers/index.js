@@ -1,1 +1,1 @@
-/Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/Resources/iphone/alloy/controllers/index.js
+/Users/thomasouk/Desktop/Sudoku/Sudoku/Resources/iphone/alloy/controllers/index.js
