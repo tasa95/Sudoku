@@ -8,7 +8,10 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
-    function goToBestScore() {}
+    function goToBestScore() {
+        var bestScores = Alloy.createController("bestScore").getView();
+        $.navGroup.openWindow(bestScores);
+    }
     function goToScores() {}
     function backHome() {
         $.navGroup.close();
@@ -33,11 +36,11 @@ function Controller() {
         id: "windowStats",
         backgroundColor: "#166181"
     });
-    $.__views.__alloyId9 = Ti.UI.createView({
+    $.__views.__alloyId10 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId9"
+        id: "__alloyId10"
     });
-    $.__views.windowStats.add($.__views.__alloyId9);
+    $.__views.windowStats.add($.__views.__alloyId10);
     $.__views.labelStat = Ti.UI.createLabel({
         color: "white",
         font: {
@@ -47,54 +50,51 @@ function Controller() {
         text: "Mes statistiques",
         id: "labelStat"
     });
-    $.__views.__alloyId9.add($.__views.labelStat);
+    $.__views.__alloyId10.add($.__views.labelStat);
     $.__views.buttonScore = Ti.UI.createButton({
-        width: "90%",
-        height: "10%",
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
         textAlign: "Center",
-        top: "5%",
-        font: {
-            fontSize: 18
-        },
+        height: Titanium.UI.SIZE,
+        width: "80%",
+        left: "10%",
+        color: "#166181",
+        top: 20,
         title: "Mon meilleur score",
         id: "buttonScore"
     });
-    $.__views.__alloyId9.add($.__views.buttonScore);
+    $.__views.__alloyId10.add($.__views.buttonScore);
     goToBestScore ? $.__views.buttonScore.addEventListener("click", goToBestScore) : __defers["$.__views.buttonScore!click!goToBestScore"] = true;
     $.__views.buttonScore = Ti.UI.createButton({
-        width: "90%",
-        height: "10%",
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
         textAlign: "Center",
-        top: "5%",
-        font: {
-            fontSize: 18
-        },
+        height: Titanium.UI.SIZE,
+        width: "80%",
+        left: "10%",
+        color: "#166181",
+        top: 20,
         title: "Mes scores",
         id: "buttonScore"
     });
-    $.__views.__alloyId9.add($.__views.buttonScore);
+    $.__views.__alloyId10.add($.__views.buttonScore);
     goToScores ? $.__views.buttonScore.addEventListener("click", goToScores) : __defers["$.__views.buttonScore!click!goToScores"] = true;
     $.__views.buttonScore = Ti.UI.createButton({
-        width: "90%",
-        height: "10%",
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
         borderRadius: 15,
         textAlign: "Center",
-        top: "5%",
-        font: {
-            fontSize: 18
-        },
+        height: Titanium.UI.SIZE,
+        width: "80%",
+        left: "10%",
+        color: "#166181",
+        top: 20,
         title: "Retour",
         id: "buttonScore"
     });
-    $.__views.__alloyId9.add($.__views.buttonScore);
+    $.__views.__alloyId10.add($.__views.buttonScore);
     backHome ? $.__views.buttonScore.addEventListener("click", backHome) : __defers["$.__views.buttonScore!click!backHome"] = true;
     $.__views.navGroup = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.windowStats,

@@ -347,7 +347,7 @@ $.windowActivity.addEventListener('new_game', function(e) {
 
 $.windowActivity.addEventListener('quitGame', function(e) {
 	// logs 'bar'
-		Ti.App.removeEventListener('quitGame',function(e){});
+	Ti.App.removeEventListener('quitGame',function(e){});
 	Ti.App.removeEventListener('new_game', function(e){});	
 
 	$.windowActivity.close();

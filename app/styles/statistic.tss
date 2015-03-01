@@ -10,12 +10,14 @@
 }
 
 "#buttonScore" : {
-  	width: "90%" ,
-	height: "10%",
 	backgroundColor: "#FFFFFF",
 	borderColor: "#FFFFFF",
 	borderRadius: 15,
 	textAlign: "Center",
-	top: "5%",
-	font: {fontSize: 18}
+	height: Titanium.UI.SIZE,
+	width: "80%" ,
+	left: "10%",
+	color: "#777",
+	top : 20 ,
+	color : "#166181"
 }

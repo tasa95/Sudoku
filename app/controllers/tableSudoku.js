@@ -35,6 +35,22 @@ function ExitGame() {
 	c.getView().open() ; 
 }
 
+function saveScore(){
+	
+	var secondModel = parseInt($.Second.text, 10);
+	var minuteModel = parseInt($.Minute.text, 10);
+	var hourModel = parseInt($.Hour.text, 10);
+
+	
+	var scoreModel = Alloy.createModel('score',{
+		hour : hourModel,
+		minute : minuteModel,
+		second : secondModel,
+	});
+	
+	scoreModel.save();
+}
+
 function timer(addTime) {
 	var left_over = 0;
 	var second = parseInt($.Second.text, 10);
@@ -93,6 +109,7 @@ var first_color = '#FFFFFF';
 
 function stopGame(refreshIntervalId) {
 	clearInterval(refreshIntervalId);
+	saveScore()
 	createNewGame();
 }
 

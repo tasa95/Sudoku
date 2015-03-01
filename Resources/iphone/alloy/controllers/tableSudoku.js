@@ -34,6 +34,17 @@ function Controller() {
         });
         c.getView().open();
     }
+    function saveScore() {
+        var secondModel = parseInt($.Second.text, 10);
+        var minuteModel = parseInt($.Minute.text, 10);
+        var hourModel = parseInt($.Hour.text, 10);
+        var scoreModel = Alloy.createModel("score", {
+            hour: hourModel,
+            minute: minuteModel,
+            second: secondModel
+        });
+        scoreModel.save();
+    }
     function timer(addTime) {
         var left_over = 0;
         var second = parseInt($.Second.text, 10);
@@ -55,6 +66,7 @@ function Controller() {
     }
     function stopGame(refreshIntervalId) {
         clearInterval(refreshIntervalId);
+        saveScore();
         createNewGame();
     }
     function verify_valueElement(e) {
@@ -120,26 +132,6 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Hour);
-    $.__views.__alloyId10 = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "4%",
-        text: ":",
-        id: "__alloyId10"
-    });
-    $.__views.Time.add($.__views.__alloyId10);
-    $.__views.Minute = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "4%",
-        id: "Minute",
-        text: "00"
-    });
-    $.__views.Time.add($.__views.Minute);
     $.__views.__alloyId11 = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -150,6 +142,26 @@ function Controller() {
         id: "__alloyId11"
     });
     $.__views.Time.add($.__views.__alloyId11);
+    $.__views.Minute = Ti.UI.createLabel({
+        color: "#166181",
+        font: {
+            fontSize: 24
+        },
+        left: "4%",
+        id: "Minute",
+        text: "00"
+    });
+    $.__views.Time.add($.__views.Minute);
+    $.__views.__alloyId12 = Ti.UI.createLabel({
+        color: "#166181",
+        font: {
+            fontSize: 24
+        },
+        left: "4%",
+        text: ":",
+        id: "__alloyId12"
+    });
+    $.__views.Time.add($.__views.__alloyId12);
     $.__views.Second = Ti.UI.createLabel({
         color: "#166181",
         font: {

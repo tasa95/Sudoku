@@ -57,21 +57,6 @@ function Controller() {
         image: "Sudoku.png"
     });
     $.__views.CenterLabel.add($.__views.imageSudoku);
-    $.__views.__alloyId3 = Ti.UI.createButton({
-        backgroundColor: "#FFFFFF",
-        borderColor: "#FFFFFF",
-        borderRadius: 15,
-        textAlign: "Center",
-        height: Titanium.UI.SIZE,
-        width: "80%",
-        left: "10%",
-        color: "#166181",
-        top: 20,
-        title: "Jouer",
-        id: "__alloyId3"
-    });
-    $.__views.CenterLabel.add($.__views.__alloyId3);
-    goToCreationOfSudoku ? $.__views.__alloyId3.addEventListener("click", goToCreationOfSudoku) : __defers["$.__views.__alloyId3!click!goToCreationOfSudoku"] = true;
     $.__views.__alloyId4 = Ti.UI.createButton({
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
@@ -82,11 +67,11 @@ function Controller() {
         left: "10%",
         color: "#166181",
         top: 20,
-        title: "Statistiques",
+        title: "Jouer",
         id: "__alloyId4"
     });
     $.__views.CenterLabel.add($.__views.__alloyId4);
-    goToStat ? $.__views.__alloyId4.addEventListener("click", goToStat) : __defers["$.__views.__alloyId4!click!goToStat"] = true;
+    goToCreationOfSudoku ? $.__views.__alloyId4.addEventListener("click", goToCreationOfSudoku) : __defers["$.__views.__alloyId4!click!goToCreationOfSudoku"] = true;
     $.__views.__alloyId5 = Ti.UI.createButton({
         backgroundColor: "#FFFFFF",
         borderColor: "#FFFFFF",
@@ -97,11 +82,26 @@ function Controller() {
         left: "10%",
         color: "#166181",
         top: 20,
-        title: "À propos",
+        title: "Statistiques",
         id: "__alloyId5"
     });
     $.__views.CenterLabel.add($.__views.__alloyId5);
-    goToAbout ? $.__views.__alloyId5.addEventListener("click", goToAbout) : __defers["$.__views.__alloyId5!click!goToAbout"] = true;
+    goToStat ? $.__views.__alloyId5.addEventListener("click", goToStat) : __defers["$.__views.__alloyId5!click!goToStat"] = true;
+    $.__views.__alloyId6 = Ti.UI.createButton({
+        backgroundColor: "#FFFFFF",
+        borderColor: "#FFFFFF",
+        borderRadius: 15,
+        textAlign: "Center",
+        height: Titanium.UI.SIZE,
+        width: "80%",
+        left: "10%",
+        color: "#166181",
+        top: 20,
+        title: "À propos",
+        id: "__alloyId6"
+    });
+    $.__views.CenterLabel.add($.__views.__alloyId6);
+    goToAbout ? $.__views.__alloyId6.addEventListener("click", goToAbout) : __defers["$.__views.__alloyId6!click!goToAbout"] = true;
     $.__views.navGroup = Ti.UI.iOS.createNavigationWindow({
         window: $.__views.mainWindow,
         id: "navGroup"
@@ -111,9 +111,9 @@ function Controller() {
     _.extend($, $.__views);
     $.mainWindow.hideNavBar();
     $.navGroup.open();
-    __defers["$.__views.__alloyId3!click!goToCreationOfSudoku"] && $.__views.__alloyId3.addEventListener("click", goToCreationOfSudoku);
-    __defers["$.__views.__alloyId4!click!goToStat"] && $.__views.__alloyId4.addEventListener("click", goToStat);
-    __defers["$.__views.__alloyId5!click!goToAbout"] && $.__views.__alloyId5.addEventListener("click", goToAbout);
+    __defers["$.__views.__alloyId4!click!goToCreationOfSudoku"] && $.__views.__alloyId4.addEventListener("click", goToCreationOfSudoku);
+    __defers["$.__views.__alloyId5!click!goToStat"] && $.__views.__alloyId5.addEventListener("click", goToStat);
+    __defers["$.__views.__alloyId6!click!goToAbout"] && $.__views.__alloyId6.addEventListener("click", goToAbout);
     _.extend($, exports);
 }
 

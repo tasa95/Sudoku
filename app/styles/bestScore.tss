@@ -1,0 +1,27 @@
+"#buttonBack" : {
+  	width: "90%" ,
+	height: "10%",
+	backgroundColor: "#FFFFFF",
+	borderColor: "#FFFFFF",
+	borderRadius: 15,
+	textAlign: "Center",
+	bottom: "5%",
+	font: {fontSize: 18}
+}
+
+
+"#labelBestScore":{
+	top:"15%",
+	color:'white',
+	font: {fontSize: 30}
+}
+
+"#valueBestScore":{
+	top:"15%",
+	color:'white',
+	font: {fontSize: 24}
+}
+
+"#scoreWindow":{
+	
+}

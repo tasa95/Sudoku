@@ -1,0 +1,13 @@
+<Alloy>
+	<Window id="scoreWindow" backgroundColor="#166181">
+		<View layout="vertical">
+			<Label id="labelBestScore">Mon meilleur score </Label>
+			<Label id="valueBestScore"></Label>	
+			
+		</View>
+		<View id="Sudoku" class="component"></View>
+		<Button id="buttonBack" onClick="closeWindow">Retour</Button>
+			
+		
+	</Window>
+</Alloy>
