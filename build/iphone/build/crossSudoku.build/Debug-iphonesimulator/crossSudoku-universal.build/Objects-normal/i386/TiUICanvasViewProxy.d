@@ -1,2 +1,2 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiUICanvasViewProxy.m
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiUICanvasViewProxy.m

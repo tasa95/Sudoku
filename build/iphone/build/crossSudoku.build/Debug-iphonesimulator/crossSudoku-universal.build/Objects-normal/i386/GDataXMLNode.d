@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/GDataXMLNode.m \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/GDataXMLNode.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/GDataXMLNode.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/GDataXMLNode.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/tree.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/xmlversion.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/xmlexports.h \

@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/Reachability.m \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/Reachability.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/Reachability.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/Reachability.h

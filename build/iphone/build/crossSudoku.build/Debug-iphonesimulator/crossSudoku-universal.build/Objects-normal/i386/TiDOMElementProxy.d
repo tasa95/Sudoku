@@ -1,12 +1,12 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDOMElementProxy.m \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDOMElementProxy.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiProxy.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiBase.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiThreading.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiPublicAPI.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiEvaluator.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/KrollContext.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDOMElementProxy.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDOMElementProxy.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiProxy.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiBase.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiThreading.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiPublicAPI.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiEvaluator.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollContext.h \
   headers/JavaScriptCore/TiCore.h headers/JavaScriptCore/Ti.h \
   headers/JavaScriptCore/TiBase.h headers/JavaScriptCore/TiContextRef.h \
   headers/JavaScriptCore/TiObjectRef.h \
@@ -14,10 +14,10 @@ dependencies: \
   headers/JavaScriptCore/WebKitAvailability.h \
   headers/JavaScriptCore/TiStringRef.h \
   headers/JavaScriptCore/TiStringRefCF.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/KrollCallback.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/KrollObject.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiBindingRunLoop.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/GDataXMLNode.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollCallback.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollObject.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiBindingRunLoop.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/GDataXMLNode.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/tree.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/xmlversion.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/xmlexports.h \
@@ -41,15 +41,15 @@ dependencies: \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/SAX2.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/xpath.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator8.1.sdk/usr/include/libxml2/libxml/xpathInternals.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDOMNodeProxy.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDOMNodeListProxy.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDOMAttrProxy.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDOMNamedNodeMapProxy.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiUtils.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDimension.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiColor.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/WebFont.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiFile.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiBuffer.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiBlob.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiDOMValidator.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDOMNodeProxy.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDOMNodeListProxy.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDOMAttrProxy.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDOMNamedNodeMapProxy.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiUtils.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDimension.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiColor.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/WebFont.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiFile.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiBuffer.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiBlob.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiDOMValidator.h

@@ -1,1 +1,1 @@
-/Users/thomasouk/Desktop/Sudoku/Sudoku/Resources/iphone/alloy/controllers/detailScore.js
+/Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/Resources/iphone/alloy/controllers/detailScore.js

@@ -8,10 +8,6 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
-    function goToCreationOfSudoku() {
-        var c = Alloy.createController("CreationSudoku", {});
-        c.getView().open();
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     if (arguments[0]) {
@@ -27,15 +23,10 @@ function Controller() {
     }
     var $ = this;
     var exports = {};
-    $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "white",
-        id: "index"
-    });
-    $.__views.index && $.addTopLevelView($.__views.index);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.index.open();
-    goToCreationOfSudoku();
+    $.mainWindow.hideNavBar();
+    $.navGroup.open();
     _.extend($, exports);
 }
 

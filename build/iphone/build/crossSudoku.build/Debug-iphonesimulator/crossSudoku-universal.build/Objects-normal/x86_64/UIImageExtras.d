@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/AFOpenFlow/UIImageExtras.m \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/AFOpenFlow/UIImageExtras.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/AFOpenFlow/UIImageExtras.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/AFOpenFlow/UIImageExtras.h

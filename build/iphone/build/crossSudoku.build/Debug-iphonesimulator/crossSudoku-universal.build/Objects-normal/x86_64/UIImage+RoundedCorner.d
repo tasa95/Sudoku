@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/UIImage+RoundedCorner.m \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/UIImage+RoundedCorner.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/UIImage+Alpha.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/UIImage+RoundedCorner.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/UIImage+RoundedCorner.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/UIImage+Alpha.h

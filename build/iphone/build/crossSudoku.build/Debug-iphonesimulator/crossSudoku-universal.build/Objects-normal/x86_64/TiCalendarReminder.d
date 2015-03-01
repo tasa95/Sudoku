@@ -1,12 +1,12 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiCalendarReminder.m \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiCalendarReminder.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiProxy.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiBase.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiThreading.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiPublicAPI.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiEvaluator.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/KrollContext.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiCalendarReminder.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiCalendarReminder.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiProxy.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiBase.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiThreading.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiPublicAPI.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiEvaluator.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollContext.h \
   headers/JavaScriptCore/TiCore.h headers/JavaScriptCore/Ti.h \
   headers/JavaScriptCore/TiBase.h headers/JavaScriptCore/TiContextRef.h \
   headers/JavaScriptCore/TiObjectRef.h \
@@ -14,6 +14,6 @@ dependencies: \
   headers/JavaScriptCore/WebKitAvailability.h \
   headers/JavaScriptCore/TiStringRef.h \
   headers/JavaScriptCore/TiStringRefCF.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/KrollCallback.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/KrollObject.h \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/TiBindingRunLoop.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollCallback.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/KrollObject.h \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/TiBindingRunLoop.h

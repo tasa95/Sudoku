@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/SCListener.m \
-  /Users/thomasouk/Desktop/Sudoku/Sudoku/build/iphone/Classes/SCListener.h
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/SCListener.m \
+  /Users/thierryallardsaintalbin/Documents/Titanium_Studio_Workspace/Sudoku/build/iphone/Classes/SCListener.h

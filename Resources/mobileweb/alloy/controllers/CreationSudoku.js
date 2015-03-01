@@ -8,6 +8,42 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
+    function isIOS_Seven_Plus() {
+        return false;
+    }
+    function goToSudoku(sudoku) {
+        var tableSudokuController = Alloy.createController("tableSudoku", {
+            table: sudoku
+        });
+        tableSudokuController.getView().open();
+        tableSudokuController.getView().addEventListener("new_game", function() {
+            $.windowActivity.fireEvent("new_game", {
+                retour: 0
+            });
+        });
+        tableSudokuController.getView().addEventListener("quitGame", function() {
+            $.windowActivity.close();
+        });
+        $.windowActivity.hide();
+    }
+    function VerificationIntegritySudoku(sudoku) {
+        var integrity = true;
+        var i = 0;
+        var j = 0;
+        while (integrity && i != sudoku.length) {
+            Ti.API.debug("|");
+            while (integrity && j != sudoku[i].length) {
+                if ("undefined" == typeof sudoku[i][j] || "" == sudoku[i][j]) {
+                    integrity = false;
+                    Ti.API.debug("_");
+                } else Ti.API.debug(sudoku[i][j]);
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+        return integrity;
+    }
     function InitTable() {
         var table = [];
         for (var i = 0; 9 > i; i++) {
@@ -17,10 +53,14 @@ function Controller() {
         return sortTable(table);
     }
     function setProb(sector, column, values) {
-        tableTry = [];
+        var tableTry = [];
         Array.isArray(column) || (column = []);
         Array.isArray(sector) || (sector = []);
         for (var i = 0; i < values.length; i++) -1 == column.indexOf(values[i]) && -1 == sector.indexOf(values[i]) && tableTry.push(values[i]);
+        if (0 == tableTry.length) {
+            Ti.API.debug("table lot = 0");
+            Ti.API.debug("values add = " + values);
+        }
         return tableTry;
     }
     function setRandom(listOfProb) {
@@ -41,7 +81,9 @@ function Controller() {
             }
             1 == ListOfListOfValues[i].length && numberOfUniqueProb++;
         }
-        return 9 != numberOfUniqueProb ? index : -1;
+        if (9 == tableIndex_check.length) return -1;
+        if (9 != numberOfUniqueProb) return index;
+        for (var i = 0; i < ListOfListOfValues.length; i++) if (-1 == tableIndex_check.indexOf(i)) return i;
     }
     function AffichageInConsole(tableSudoku) {
         var string = "";
@@ -50,23 +92,20 @@ function Controller() {
             for (var j = 0; 9 > j; j++) string += "undefined" != typeof tableSudoku && "undefined" != typeof tableSudoku[i] && tableSudoku[i][j] && Array.isArray(tableSudoku[i]) ? tableSudoku[i][j] : "_";
             string += "|\n";
         }
-        Ti.API.info("tableau " + string);
+        Ti.API.debug("tableau " + string);
     }
     function getValues(i, probTableSudoku, index) {
         var table_number = [];
         var compteur = [];
         if (probTableSudoku[index].length > 1) {
-            for (var y = 0; y < probTableSudoku.length; y++) for (var x = 0; x < probTableSudoku[y].length; x++) {
-                index != y;
-                table_number.push(probTableSudoku[y][x]);
-            }
+            for (var y = 0; y < probTableSudoku.length; y++) for (var x = 0; x < probTableSudoku[y].length; x++) index != y && table_number.push(probTableSudoku[y][x]);
             for (var x = 0; x < probTableSudoku.length; x++) for (var y = 0; y < probTableSudoku[x].length; y++) if (index != x) {
                 compteur[probTableSudoku[x][y]] && "undefined" != typeof compteur[probTableSudoku[x][y]] || (compteur[probTableSudoku[x][y]] = 0);
                 compteur[probTableSudoku[x][y]]++;
             }
             var less = 100;
             var tab_value = [];
-            Ti.API.info("index = " + index);
+            Ti.API.debug("index = " + index);
             for (var y = 1; y < compteur.length; y++) if (compteur[y] < less) {
                 if (-1 !== probTableSudoku[index].indexOf(y)) {
                     tab_value = [];
@@ -76,18 +115,20 @@ function Controller() {
             } else compteur[y] == less && -1 !== probTableSudoku[index].indexOf(y) && tab_value.push(y);
             return tab_value;
         }
-        Ti.API.info("index = " + index);
-        Ti.API.info("value = " + probTableSudoku[index][0]);
+        Ti.API.debug("index = " + index);
+        Ti.API.debug("value = " + probTableSudoku[index][0]);
+        Ti.API.debug("value = " + probTableSudoku[index]);
         return probTableSudoku[index];
     }
-    function insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
-        tableIndex_check.push(index);
-        tableSudoku[i][index] = setRandom(getValues(i, probTableSudoku[i], index));
+    function insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table) {
+        tableSudoku[i][index] = setRandom(probTableSudoku[i].length > 1 ? getValues(i, probTableSudoku[i], index) : probTableSudoku[i]);
         "undefined" != typeof tableColumn[index] && tableColumn[index] && Array.isArray(tableColumn[index]) || (tableColumn[index] = []);
         "undefined" != typeof tableSector[Math.floor(index / 3) + 3 * Math.floor(i / 3)] && tableSector[Math.floor(index / 3) + Math.floor(i / 3)] && Array.isArray(tableSector[Math.floor(index / 3) + Math.floor(i / 3)]) || (tableSector[Math.floor(index / 3) + 3 * Math.floor(i / 3)] = []);
         tableColumn[index].push(tableSudoku[i][index]);
         tableSector[Math.floor(index / 3) + 3 * Math.floor(i / 3)].push(tableSudoku[i][index]);
-        table[i].splice(table[i].indexOf(tableSudoku[i][index]), 1);
+        table[i] = table[i].filter(function(element) {
+            return element != tableSudoku[i][index];
+        });
         AffichageInConsole(tableSudoku);
     }
     function sortTable(table) {
@@ -106,11 +147,11 @@ function Controller() {
             for (j = 0; 9 > j; j++) {
                 if ("undefined" == typeof tableColumn[j] || !tableColumn[j] || !Array.isArray(tableColumn[i])) {
                     tableColumn[j] = [];
-                    Ti.API.info("tabColumn = " + j);
+                    Ti.API.debug("tabColumn = " + j);
                 }
                 if (!tableSector[Math.floor(j / 3) + 3 * Math.floor(i / 3)]) {
                     tableSector[Math.floor(j / 3) + 3 * Math.floor(i / 3)] = [];
-                    Ti.API.info("tabSector = " + Math.floor(j / 3) + Math.floor(i / 3));
+                    Ti.API.debug("tabSector = " + Math.floor(j / 3) + Math.floor(i / 3));
                 }
                 if (-1 == tableIndex_check.indexOf(j)) {
                     tableTry = setProb(tableSector[Math.floor(j / 3) + 3 * Math.floor(i / 3)], tableColumn[j], table[i]);
@@ -122,36 +163,18 @@ function Controller() {
                 tableTry = [];
             }
             var index = checkWhereThereIsLessProb(probTableSudoku[i], tableIndex_check);
-            if (-1 != index && -1 == tableIndex_check.indexOf(index)) insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry); else if (-1 == index) {
-                index = -1;
-                while (8 > index) {
-                    index++;
-                    -1 === tableIndex_check.indexOf(index) && insertInSudoku(i, index, tableIndex_check, tableSudoku, probTableSudoku, tableColumn, tableSector, table, tableTry);
-                }
-                if (9 > index) {
-                    i++;
-                    j = 0;
-                    tableIndex_check = [];
-                    probTableSudoku[i] = [];
-                    tableSudoku[i] = [];
-                }
+            if (-1 != index && -1 == tableIndex_check.indexOf(index)) {
+                insertInSudoku(i, index, tableSudoku, probTableSudoku, tableColumn, tableSector, table);
+                tableIndex_check.push(index);
+            } else {
+                i++;
+                j = 0;
+                tableIndex_check = [];
+                probTableSudoku[i] = [];
+                tableSudoku[i] = [];
             }
         }
         return tableSudoku;
-    }
-    function stopGame(refreshIntervalId) {
-        clearInterval(refreshIntervalId);
-    }
-    function verify_valueElement(e) {
-        var letters = /^[0-9]+$/;
-        if (e.value != e.source.oldValue) if (e.value.match(letters)) {
-            e.value = e.value % 10;
-            e.source.oldValue = e.value;
-            e.source.value = e.value;
-        } else if ("" === e.value) {
-            e.source.oldValue = e.value;
-            e.source.value = e.value;
-        } else e.source.value = "";
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "CreationSudoku";
@@ -174,242 +197,44 @@ function Controller() {
     });
     $.__views.windowActivity && $.addTopLevelView($.__views.windowActivity);
     $.__views.Container = Ti.UI.createView({
-        layout: "vertical",
-        width: Titanium.UI.FILL,
-        height: Titanium.UI.SIZE,
-        top: "5%",
         id: "Container"
     });
     $.__views.windowActivity.add($.__views.Container);
-    $.__views.Time = Ti.UI.createView({
-        width: "40%",
-        height: Titanium.UI.SIZE,
-        top: "2%",
-        layout: "horizontal",
-        font: {
-            fontSize: 24
-        },
-        left: "30%",
-        backgroundColor: "#FFFFFF",
-        borderColor: "#FFFFFF",
-        borderRadius: 15,
-        id: "Time"
+    $.__views.activityIndicator = Ti.UI.createActivityIndicator({
+        style: Ti.UI.ActivityIndicatorStyle.DARK,
+        indicatorColor: "White",
+        color: "Black",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "activityIndicator"
     });
-    $.__views.Container.add($.__views.Time);
-    $.__views.Hour = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "2%",
-        id: "Hour",
-        text: "00"
-    });
-    $.__views.Time.add($.__views.Hour);
-    $.__views.__alloyId0 = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "2%",
-        text: ":",
-        id: "__alloyId0"
-    });
-    $.__views.Time.add($.__views.__alloyId0);
-    $.__views.Minute = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "2%",
-        id: "Minute",
-        text: "00"
-    });
-    $.__views.Time.add($.__views.Minute);
-    $.__views.__alloyId1 = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "2%",
-        text: ":",
-        id: "__alloyId1"
-    });
-    $.__views.Time.add($.__views.__alloyId1);
-    $.__views.Second = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "2%",
-        id: "Second",
-        text: "00"
-    });
-    $.__views.Time.add($.__views.Second);
-    $.__views.Sudoku = Ti.UI.createView({
-        height: Titanium.UI.SIZE,
-        width: Titanium.UI.FILL,
-        layout: "horizontal",
-        left: "1%",
-        top: "1%",
-        id: "Sudoku"
-    });
-    $.__views.Container.add($.__views.Sudoku);
-    $.__views.Options = Ti.UI.createView({
-        width: Titanium.UI.SIZE,
-        height: Titanium.UI.SIZE,
-        top: "1%",
-        id: "Options"
-    });
-    $.__views.Container.add($.__views.Options);
-    $.__views.help = Ti.UI.createButton({
-        width: "40%",
-        height: Titanium.UI.SIZE,
-        left: "30%",
-        backgroundColor: "#FFFFFF",
-        borderColor: "#FFFFFF",
-        borderRadius: 15,
-        textAlign: "Center",
-        id: "help",
-        title: "AIDE"
-    });
-    $.__views.Options.add($.__views.help);
+    $.__views.Container.add($.__views.activityIndicator);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var sudoku = InitTable();
-    var width = Titanium.Platform.displayCaps.platformWidth;
-    var height = .6 * Titanium.Platform.displayCaps.platformHeight;
-    var tinyBorderHorizontal = .005 * height;
-    var tinyBorderVertical = .005 * width;
-    var row_height = .94 * height / 9;
-    var cell_width = .94 * width / 9;
-    var color_border = "#040430";
-    var second_color = "#D9F1FE";
-    var first_color = "#FFFFFF";
-    var tableData = [];
-    var table = Ti.UI.createTableView({
-        separatorStyle: 0,
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        moveable: false,
-        moving: false,
-        scrollable: false
-    });
-    var number_line = sudoku.length - 1;
-    var empty_cells = 0;
-    for (var i = 0; number_line > i; i++) {
-        var row = Ti.UI.createTableViewRow({
-            className: "row",
-            objName: "row_" + i,
-            textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-            layout: "vertical",
-            height: row_height,
-            moveable: false,
-            moving: false,
-            scrollable: false,
-            focusable: false,
-            editable: false,
-            touchEnabled: false,
-            allowsSelection: false
-        });
-        var LineSudokuView = Ti.UI.createView({
-            backgroundColor: "#FFFFFF",
-            objName: "horizontalView",
-            rowID: i,
-            height: Ti.UI.FILL,
-            layout: "horizontal",
-            width: Ti.UI.FILL
-        });
-        if (sudoku[i]) {
-            number_column = sudoku[i].length;
-            for (var j = 0; number_column > j; j++) {
-                var random = Math.floor(1e3 * Math.random());
-                if ((Math.floor(j / 3) + 3 * Math.floor(i / 3)) % 2 === 0) var color = first_color; else var color = second_color;
-                var hide = random % 3 == 0 || random % 5 == 0 || random % 7 == 0 || random % 13 == 0 || random % 17 == 0 || random % 19 == 0 || random % 23 == 0 || random % 29 == 0;
-                if (hide) {
-                    var textField = Ti.UI.createTextField({
-                        keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
-                        value: "",
-                        id: "textField_" + i + "_" + j
-                    });
-                    empty_cells++;
-                } else var textField = Ti.UI.createTextField({
-                    value: sudoku[i][j],
-                    touchEnabled: false,
-                    editable: false,
-                    keyboardType: Titanium.UI.KEYBOARD_NUMBER_PAD,
-                    id: "textField_" + i + "_" + j
-                });
-                textField.height = row_height;
-                textField.width = cell_width;
-                textField.textAlign = Titanium.UI.TEXT_ALIGNMENT_CENTER;
-                textField.backgroundColor = color;
-                textField.focusable = true;
-                textField.addEventListener("change", function(e) {
-                    if (e.value != e.source.oldValue) {
-                        verify_valueElement(e);
-                        var element = e.source;
-                        var id = element.id + "";
-                        var fields = id.split("_");
-                        if (sudoku[fields[1]][fields[2]] == e.source.value) {
-                            element.color = "#1E6912";
-                            empty_cells--;
-                        } else element.color = "#801A15";
-                        Ti.API.info("empty_cells= " + empty_cells);
-                        0 == empty_cells && stopGame(refreshId);
-                    }
-                });
-                LineSudokuView.add(textField);
-                if (8 > j) {
-                    var VerticalBorder = Ti.UI.createView({
-                        backgroundColor: color_border,
-                        width: tinyBorderVertical,
-                        top: 0,
-                        bottom: 0,
-                        right: 0,
-                        height: Ti.UI.FILL
-                    });
-                    LineSudokuView.add(VerticalBorder);
-                }
-            }
+    style = Ti.UI.ActivityIndicatorStyle.DARK;
+    $.activityIndicator.style = style;
+    var iOS_seven = isIOS_Seven_Plus();
+    var theTop = iOS_seven ? 20 : 0;
+    var window = $.windowActivity;
+    window.top = theTop;
+    $.windowActivity.addEventListener("new_game", function(e) {
+        $.windowActivity.show();
+        $.activityIndicator.show();
+        if (0 == e.retour) {
+            var sudoku;
+            do sudoku = InitTable(); while (false == VerificationIntegritySudoku(sudoku));
         }
-        row.add(LineSudokuView);
-        var HorizontalBorder = Ti.UI.createView({
-            backgroundColor: color_border,
-            width: Ti.UI.FILL,
-            top: 0,
-            bottom: 0,
-            right: 0,
-            height: tinyBorderHorizontal
-        });
-        row.add(HorizontalBorder);
-        tableData.push(row);
-    }
-    var HorizontalBorder = Ti.UI.createView({
-        backgroundColor: color_border,
-        width: Ti.UI.FILL,
-        top: 0,
-        bottom: 0,
-        right: 0,
-        height: tinyBorderHorizontal
+        $.activityIndicator.hide();
+        goToSudoku(sudoku);
     });
-    row.add(HorizontalBorder);
-    table.setData(tableData);
-    $.Sudoku.add(table);
-    setInterval(function() {
-        $.Second.text++;
-        $.Second.text >= 0 && $.Second.text < 10 && ($.Second.text = "0" + $.Second.text);
-        if ($.Second.text % 60 == 0) {
-            $.Minute.text++;
-            $.Minute.text >= 0 && $.Minute.text < 10 && ($.Minute.text = "0" + $.Minute.text);
-            $.Second.text = 0;
-            if ($.Minute.text % 60 == 0) {
-                $.Hour.text++;
-                $.Minute.text = 0;
-                $.Hour.text > 0 && $.Hour.text < 10 && ($.Hour.text = "0" + $.Hour.text);
-            }
-        }
-    }, 1e3);
+    $.windowActivity.addEventListener("quitGame", function() {
+        Ti.App.removeEventListener("quitGame", function() {});
+        Ti.App.removeEventListener("new_game", function() {});
+        $.windowActivity.close();
+    });
+    $.windowActivity.fireEvent("new_game", {
+        retour: 0
+    });
     _.extend($, exports);
 }
 
