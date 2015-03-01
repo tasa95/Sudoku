@@ -132,26 +132,6 @@ function Controller() {
         text: "00"
     });
     $.__views.Time.add($.__views.Hour);
-    $.__views.__alloyId24 = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "4%",
-        text: ":",
-        id: "__alloyId24"
-    });
-    $.__views.Time.add($.__views.__alloyId24);
-    $.__views.Minute = Ti.UI.createLabel({
-        color: "#166181",
-        font: {
-            fontSize: 24
-        },
-        left: "4%",
-        id: "Minute",
-        text: "00"
-    });
-    $.__views.Time.add($.__views.Minute);
     $.__views.__alloyId25 = Ti.UI.createLabel({
         color: "#166181",
         font: {
@@ -162,6 +142,26 @@ function Controller() {
         id: "__alloyId25"
     });
     $.__views.Time.add($.__views.__alloyId25);
+    $.__views.Minute = Ti.UI.createLabel({
+        color: "#166181",
+        font: {
+            fontSize: 24
+        },
+        left: "4%",
+        id: "Minute",
+        text: "00"
+    });
+    $.__views.Time.add($.__views.Minute);
+    $.__views.__alloyId26 = Ti.UI.createLabel({
+        color: "#166181",
+        font: {
+            fontSize: 24
+        },
+        left: "4%",
+        text: ":",
+        id: "__alloyId26"
+    });
+    $.__views.Time.add($.__views.__alloyId26);
     $.__views.Second = Ti.UI.createLabel({
         color: "#166181",
         font: {

@@ -1,0 +1,13 @@
+<Alloy>
+	<Window id="detailWindow" backgroundColor="#166181">
+		<View layout="vertical">
+			<Label id="labelScore">Mon score </Label>
+			<Label id="valueScore"></Label>	
+			
+		</View>
+		<View id="Sudoku" class="component"></View>
+		<Button id="buttonBack" onClick="closeWindow">Retour</Button>
+			
+		
+	</Window>
+</Alloy>

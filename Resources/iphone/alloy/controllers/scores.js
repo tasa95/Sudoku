@@ -8,31 +8,31 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
-    function __alloyId22(e) {
+    function __alloyId23(e) {
         if (e && e.fromAdapter) return;
-        __alloyId22.opts || {};
-        var models = __alloyId21.models;
+        __alloyId23.opts || {};
+        var models = __alloyId22.models;
         var len = models.length;
         var rows = [];
         for (var i = 0; len > i; i++) {
-            var __alloyId12 = models[i];
-            __alloyId12.__transform = {};
-            var __alloyId13 = Ti.UI.createTableViewRow({
+            var __alloyId13 = models[i];
+            __alloyId13.__transform = {};
+            var __alloyId14 = Ti.UI.createTableViewRow({
                 hasCheck: false,
                 width: Ti.UI.FILL,
                 height: "40dp",
                 backgroundColor: "#166181",
-                rowId: "undefined" != typeof __alloyId12.__transform["id"] ? __alloyId12.__transform["id"] : __alloyId12.get("id")
+                rowId: "undefined" != typeof __alloyId13.__transform["id"] ? __alloyId13.__transform["id"] : __alloyId13.get("id")
             });
-            rows.push(__alloyId13);
-            var __alloyId14 = Ti.UI.createView({
+            rows.push(__alloyId14);
+            var __alloyId15 = Ti.UI.createView({
                 width: "40%",
                 height: Ti.UI.FILL,
                 left: "10%",
                 layout: "horizontal"
             });
-            __alloyId13.add(__alloyId14);
-            var __alloyId15 = Ti.UI.createLabel({
+            __alloyId14.add(__alloyId15);
+            var __alloyId16 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 textAlign: "right",
@@ -40,10 +40,10 @@ function Controller() {
                 font: {
                     fontSize: 20
                 },
-                text: "undefined" != typeof __alloyId12.__transform["hour"] ? __alloyId12.__transform["hour"] : __alloyId12.get("hour")
+                text: "undefined" != typeof __alloyId13.__transform["hour"] ? __alloyId13.__transform["hour"] : __alloyId13.get("hour")
             });
-            __alloyId14.add(__alloyId15);
-            var __alloyId16 = Ti.UI.createLabel({
+            __alloyId15.add(__alloyId16);
+            var __alloyId17 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 color: "white",
@@ -52,8 +52,8 @@ function Controller() {
                 },
                 text: "h"
             });
-            __alloyId14.add(__alloyId16);
-            var __alloyId17 = Ti.UI.createLabel({
+            __alloyId15.add(__alloyId17);
+            var __alloyId18 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 textAlign: "right",
@@ -61,10 +61,10 @@ function Controller() {
                 font: {
                     fontSize: 20
                 },
-                text: "undefined" != typeof __alloyId12.__transform["minute"] ? __alloyId12.__transform["minute"] : __alloyId12.get("minute")
+                text: "undefined" != typeof __alloyId13.__transform["minute"] ? __alloyId13.__transform["minute"] : __alloyId13.get("minute")
             });
-            __alloyId14.add(__alloyId17);
-            var __alloyId18 = Ti.UI.createLabel({
+            __alloyId15.add(__alloyId18);
+            var __alloyId19 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 color: "white",
@@ -73,8 +73,8 @@ function Controller() {
                 },
                 text: "m"
             });
-            __alloyId14.add(__alloyId18);
-            var __alloyId19 = Ti.UI.createLabel({
+            __alloyId15.add(__alloyId19);
+            var __alloyId20 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 textAlign: "right",
@@ -82,10 +82,10 @@ function Controller() {
                 font: {
                     fontSize: 20
                 },
-                text: "undefined" != typeof __alloyId12.__transform["second"] ? __alloyId12.__transform["second"] : __alloyId12.get("second")
+                text: "undefined" != typeof __alloyId13.__transform["second"] ? __alloyId13.__transform["second"] : __alloyId13.get("second")
             });
-            __alloyId14.add(__alloyId19);
-            var __alloyId20 = Ti.UI.createLabel({
+            __alloyId15.add(__alloyId20);
+            var __alloyId21 = Ti.UI.createLabel({
                 width: "15%",
                 top: "33%",
                 color: "white",
@@ -94,12 +94,22 @@ function Controller() {
                 },
                 text: "s"
             });
-            __alloyId14.add(__alloyId20);
+            __alloyId15.add(__alloyId21);
         }
         $.__views.scoreTableView.setData(rows);
     }
     function closeWindow() {
         $.navGroup.close();
+    }
+    function deleteScore(rowScore) {
+        var scoreData = Alloy.createCollection("score");
+        scoreData.fetch({
+            query: "SELECT * FROM score WHERE id = " + rowScore.rowId
+        });
+        if (scoreData.length > 0) {
+            scoreData.at(0).destroy();
+            Alloy.Collections.score.fetch();
+        }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "scores";
@@ -145,8 +155,8 @@ function Controller() {
         id: "scoreTableView"
     });
     $.__views.viewScores.add($.__views.scoreTableView);
-    var __alloyId21 = Alloy.Collections["score"] || score;
-    __alloyId21.on("fetch destroy change add remove reset", __alloyId22);
+    var __alloyId22 = Alloy.Collections["score"] || score;
+    __alloyId22.on("fetch destroy change add remove reset", __alloyId23);
     $.__views.closeWindowButton = Ti.UI.createButton({
         width: "80%",
         height: Titanium.UI.SIZE,
@@ -167,9 +177,35 @@ function Controller() {
     });
     $.__views.navGroup && $.addTopLevelView($.__views.navGroup);
     exports.destroy = function() {
-        __alloyId21.off("fetch destroy change add remove reset", __alloyId22);
+        __alloyId22.off("fetch destroy change add remove reset", __alloyId23);
     };
     _.extend($, $.__views);
+    $.scoreTableView.addEventListener("click", function(e) {
+        var recoverDatabase = Alloy.createCollection("score");
+        recoverDatabase.fetch({
+            query: "SELECT * FROM score WHERE id = " + e.row.rowId
+        });
+        var args = {
+            hour: recoverDatabase.at(0).get("hour"),
+            minute: recoverDatabase.at(0).get("minute"),
+            second: recoverDatabase.at(0).get("second")
+        };
+        var detail = Alloy.createController("detailScore", args).getView();
+        $.navGroup.openWindow(detail);
+    });
+    $.scoreTableView.addEventListener("longpress", function(e) {
+        var row = e.row;
+        var alertDialog = Titanium.UI.createAlertDialog({
+            title: "Supprimer",
+            message: "Voulez vous supprimer ce score?",
+            buttonNames: [ "Oui", "Non" ],
+            cancel: 1
+        });
+        alertDialog.show();
+        alertDialog.addEventListener("click", function(e) {
+            0 == e.index ? deleteScore(row) : 1 == e.index;
+        });
+    });
     $.navGroup.addEventListener("close", function() {
         $.destroy();
     });

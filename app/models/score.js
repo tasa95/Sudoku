@@ -8,7 +8,8 @@ exports.definition = {
 		},
 		adapter: {
 			type: "sql",
-			collection_name: "score"
+			collection_name: "score",
+			idAttribute : 'id'
 		}
 	},
 	extendModel: function(Model) {
